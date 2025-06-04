@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 15px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 18px;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .section h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 6px;
+        }
+
+        .subsection {
+            margin-bottom: 20px;
+        }
+
+        .subsection:last-child {
+            margin-bottom: 0;
+        }
+
+        .subsection h3 {
+            color: #555;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+            padding: 6px 10px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 6px;
+            border-left: 3px solid #667eea;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 8px;
+        }
+
+        .links-grid.large {
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+        }
+
+        .link-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 8px;
+            padding: 12px;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.2s ease;
+            border: 2px solid #dee2e6;
+            display: block;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .link-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+        }
+
+        .link-card h4 {
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .link-card p {
+            font-size: 0.7rem;
+            opacity: 0.8;
+            line-height: 1.3;
+        }
+
+        .link-card.large h4 {
+            font-size: 1rem;
+            margin-bottom: 6px;
+        }
+
+        .link-card.large p {
+            font-size: 0.8rem;
+        }
+
+        .bottom-sections {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+
+
+
+
+        @media (max-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .bottom-sections {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.6rem;
+            }
+            
+            .links-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+            
+            .links-grid.large {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Instant Bookkeeper Inc</h1>
+            <p>Quick access to all your important links</p>
+        </div>
+
+        <div class="main-grid">
+            <!-- Google Sheets Section with Subsections -->
+            <div class="section">
+                <h2>📊 Google Sheets</h2>
+                
+                <div class="subsection">
+                    <h3>🛒 Purchasing</h3>
+                    <div class="links-grid" id="sheets-purchasing">
+                        <a href="https://docs.google.com/spreadsheets/d/1bpJcOZ6IRjeQ-LOZq8uXP2EXNrFoZh-KUCscVxTuu0k" class="link-card" target="_blank" rel="noopener">
+                            <h4>AK Purchasing</h4>
+                            <p>AK vendor purchasing</p>
+                        </a>
+                        <a href="https://docs.google.com/spreadsheets/d/1724dPl9lin8dz4IoSN3nLJp7_ub7NUYS9hKngx2Qj0o" class="link-card" target="_blank" rel="noopener">
+                            <h4>BT Purchasing</h4>
+                            <p>BT vendor purchasing</p>
+                        </a>
+                        <a href="https://docs.google.com/spreadsheets/d/1q0Y_YmbT1ohUFwG3TwxK3t2Z7l4Q63qcRJelHlUdDlg" class="link-card" target="_blank" rel="noopener">
+                            <h4>AG Purchasing</h4>
+                            <p>AG vendor purchasing</p>
+                        </a>
+                        <a href="https://docs.google.com/spreadsheets/d/1JGHGfRIA6wTat8ENoENBWwaVERqtGUN0CiHiduHC6hw" class="link-card" target="_blank" rel="noopener">
+                            <h4>ZC Purchasing</h4>
+                            <p>ZC vendor purchasing</p>
+                        </a>
+                        <a href="https://docs.google.com/spreadsheets/d/1uV5uoallbsFwi4BNf9db8GeUnK5GGuPo8fipG02rL9I" class="link-card" target="_blank" rel="noopener">
+                            <h4>CP Purchasing</h4>
+                            <p>CP vendor purchasing</p>
+                        </a>
+                        <a href="https://docs.google.com/spreadsheets/d/1gfnil9pBjvKXvSTnxY7mufE5-tTRtKdccCSCR9WPa5Q" class="link-card" target="_blank" rel="noopener">
+                            <h4>JK Purchasing</h4>
+                            <p>JK vendor purchasing</p>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>📈 Financial</h3>
+                    <div class="links-grid" id="sheets-financial">
+                        <a href="#" class="link-card">
+                            <h4>Budget 2025</h4>
+                            <p>Monthly budget tracking</p>
+                        </a>
+                        <a href="#" class="link-card">
+                            <h4>Expenses</h4>
+                            <p>Daily expense log</p>
+                        </a>
+                        <a href="#" class="link-card">
+                            <h4>Revenue Track</h4>
+                            <p>Monthly revenue data</p>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>👥 Operations</h3>
+                    <div class="links-grid" id="sheets-operations">
+                        <a href="#" class="link-card">
+                            <h4>Staff Schedule</h4>
+                            <p>Team availability</p>
+                        </a>
+                        <a href="#" class="link-card">
+                            <h4>Inventory</h4>
+                            <p>Stock levels</p>
+                        </a>
+                        <a href="#" class="link-card">
+                            <h4>Task Tracker</h4>
+                            <p>Project progress</p>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>📋 Planning</h3>
+                    <div class="links-grid" id="sheets-planning">
+                        <a href="#" class="link-card">
+                            <h4>Project Plan</h4>
+                            <p>Q2 roadmap</p>
+                        </a>
+                        <a href="#" class="link-card">
+                            <h4>Goals 2025</h4>
+                            <p>Annual objectives</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Web Apps Section -->
+            <div class="section">
+                <h2>🚀 Web Apps</h2>
+                <div class="links-grid large" id="apps-grid">
+                    <a href="https://gmail.com" class="link-card large" target="_blank" rel="noopener">
+                        <h4>Gmail</h4>
+                        <p>Email management</p>
+                    </a>
+                    <a href="https://chatgpt.com" class="link-card large" target="_blank" rel="noopener">
+                        <h4>ChatGPT</h4>
+                        <p>AI assistant</p>
+                    </a>
+                    <a href="https://web.whatsapp.com" class="link-card large" target="_blank" rel="noopener">
+                        <h4>WhatsApp</h4>
+                        <p>Messaging platform</p>
+                    </a>
+                    <a href="https://app.hubstaff.com/" class="link-card large" target="_blank" rel="noopener">
+                        <h4>Hubstaff</h4>
+                        <p>Time tracking</p>
+                    </a>
+                    <a href="https://app.slack.com/client/TBZ1WQHEH" class="link-card large" target="_blank" rel="noopener">
+                        <h4>Slack</h4>
+                        <p>Team communication</p>
+                    </a>
+                    <a href="https://my.anchor.sh/home" class="link-card large" target="_blank" rel="noopener">
+                        <h4>Anchor</h4>
+                        <p>Project management</p>
+                    </a>
+                    <a href="https://keeper.app/client-list" class="link-card large" target="_blank" rel="noopener">
+                        <h4>Keeper</h4>
+                        <p>Client management</p>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Reporting Section -->
+            <div class="section">
+                <h2>📈 Reporting</h2>
+                <div class="links-grid large" id="reporting-grid">
+                    <a href="https://app.fathomhq.com/" class="link-card large" target="_blank" rel="noopener">
+                        <h4>Fathom Analytics</h4>
+                        <p>Website analytics</p>
+                    </a>
+                    <a href="https://lookerstudio.google.com/reporting/7d4fac36-88ab-4864-a027-4d767d98d9c8/page/p_pkr0amo72c" class="link-card large" target="_blank" rel="noopener">
+                        <h4>Sales Dashboard</h4>
+                        <p>Sales metrics & performance</p>
+                    </a>
+                    <a href="https://lookerstudio.google.com/reporting/d6d0fec9-482d-47b3-9c56-111d8d8ea357/page/p_paqj9iy7nd" class="link-card large" target="_blank" rel="noopener">
+                        <h4>ROI Analysis</h4>
+                        <p>Return on investment tracking</p>
+                    </a>
+                    <a href="https://lookerstudio.google.com/u/0/reporting/e1aaf9ad-c3d1-44c1-a994-00c97ab5a0ce/page/p_eed8ll4krd" class="link-card large" target="_blank" rel="noopener">
+                        <h4>Inventory Analysis</h4>
+                        <p>Inventory value & trends</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-sections">
+            <!-- Documents Section -->
+            <div class="section">
+                <h2>📄 Documents</h2>
+                <div class="links-grid large" id="documents-grid">
+                    <a href="#" class="link-card large">
+                        <h4>Company Policies</h4>
+                        <p>HR handbook</p>
+                    </a>
+                    <a href="#" class="link-card large">
+                        <h4>Meeting Notes</h4>
+                        <p>Weekly standup notes</p>
+                    </a>
+                    <a href="#" class="link-card large">
+                        <h4>SOPs</h4>
+                        <p>Standard procedures</p>
+                    </a>
+                    <a href="#" class="link-card large">
+                        <h4>Templates</h4>
+                        <p>Document templates</p>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Quick Links Section -->
+            <div class="section">
+                <h2>⭐ Quick Links</h2>
+                <div class="links-grid large" id="quick-grid">
+                    <a href="https://github.com" class="link-card large">
+                        <h4>GitHub</h4>
+                        <p>Code repositories</p>
+                    </a>
+                    <a href="https://slack.com" class="link-card large">
+                        <h4>Slack</h4>
+                        <p>Team chat</p>
+                    </a>
+                    <a href="https://trello.com" class="link-card large">
+                        <h4>Trello</h4>
+                        <p>Project boards</p>
+                    </a>
+                    <a href="https://notion.so" class="link-card large">
+                        <h4>Notion</h4>
+                        <p>Notes & docs</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        // Dashboard is ready - no search functionality needed
+    </script>
+</body>
+</html>
