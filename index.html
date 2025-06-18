@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Enhanced Dashboard</title>
+    <title>Business Dashboard</title>
     <style>
         * {
             margin: 0;
@@ -12,24 +12,22 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
-        .app-container {
+        .dashboard-container {
             display: flex;
             min-height: 100vh;
         }
 
-        /* Sidebar Styles */
+        /* Sidebar */
         .sidebar {
-            width: 260px;
+            width: 250px;
             background: rgba(30, 41, 59, 0.95);
-            backdrop-filter: blur(20px);
-            border-right: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
             position: fixed;
             height: 100vh;
             overflow-y: auto;
@@ -37,143 +35,108 @@
             transition: transform 0.3s ease;
         }
 
-        .sidebar.collapsed {
-            transform: translateX(-100%);
-        }
-
         .sidebar-header {
-            padding: 20px;
+            padding: 1.5rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
         }
 
         .sidebar-header h1 {
-            color: white;
-            font-size: 1.5rem;
-            margin-bottom: 5px;
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
         }
 
         .sidebar-header p {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.85rem;
+            font-size: 0.875rem;
+            opacity: 0.7;
         }
 
-        .nav-section {
-            padding: 15px 10px 5px 10px;
+        .nav-group {
+            padding: 1rem 0.75rem;
         }
 
-        .nav-section h3 {
-            color: rgba(255, 255, 255, 0.6);
+        .nav-group h3 {
             font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-            padding-left: 15px;
-            font-weight: 600;
+            letter-spacing: 0.05em;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 0.75rem;
+            padding-left: 0.75rem;
         }
 
         .nav-item {
             display: flex;
             align-items: center;
-            padding: 12px 15px;
+            padding: 0.75rem;
             color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
-            border-radius: 8px;
-            margin-bottom: 2px;
+            border-radius: 0.5rem;
+            margin-bottom: 0.25rem;
             transition: all 0.2s ease;
             cursor: pointer;
-            position: relative;
         }
 
         .nav-item:hover {
             background: rgba(255, 255, 255, 0.1);
             color: white;
-            transform: translateX(5px);
         }
 
         .nav-item.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
 
         .nav-item .icon {
-            margin-right: 12px;
-            font-size: 1.1rem;
-            width: 20px;
-            text-align: center;
+            margin-right: 0.75rem;
+            font-size: 1.125rem;
         }
 
         .nav-item .text {
-            font-size: 0.9rem;
-            font-weight: 500;
+            flex: 1;
+            font-size: 0.875rem;
         }
 
         .nav-item .badge {
-            margin-left: auto;
             background: #ef4444;
             color: white;
-            font-size: 0.7rem;
-            padding: 2px 6px;
-            border-radius: 10px;
-            min-width: 18px;
+            font-size: 0.75rem;
+            padding: 0.125rem 0.5rem;
+            border-radius: 1rem;
+            min-width: 1.25rem;
             text-align: center;
         }
 
-        /* Main Content Styles */
+        /* Main Content */
         .main-content {
             flex: 1;
-            margin-left: 260px;
-            padding: 20px;
-            transition: margin-left 0.3s ease;
-        }
-
-        .main-content.expanded {
-            margin-left: 0;
+            margin-left: 250px;
+            padding: 1.5rem;
         }
 
         .content-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 25px;
+            margin-bottom: 2rem;
             color: white;
         }
 
-        .menu-toggle {
-            display: none;
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            color: white;
-            padding: 10px;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-right: 15px;
-            transition: all 0.2s ease;
-        }
-
-        .menu-toggle:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .content-title {
+        .content-header h1 {
             font-size: 2rem;
-            margin-bottom: 5px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
-        .content-subtitle {
-            font-size: 0.9rem;
+        .content-header p {
+            font-size: 1rem;
             opacity: 0.9;
         }
 
         /* Content Sections */
         .content-section {
             display: none;
-            animation: fadeIn 0.3s ease;
         }
 
         .content-section.active {
             display: block;
+            animation: fadeIn 0.3s ease;
         }
 
         @keyframes fadeIn {
@@ -181,134 +144,64 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Card Layout for non-table sections */
-        .section-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 25px;
-        }
-
-        .card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 6px 25px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-        }
-
-        .card h3 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-            border-bottom: 2px solid #667eea;
-            padding-bottom: 8px;
-        }
-
-        .links-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 12px;
-        }
-
-        .link-card {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 8px;
-            padding: 15px;
-            text-decoration: none;
-            color: #333;
-            transition: all 0.3s ease;
-            border: 2px solid #dee2e6;
-            display: block;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-
-        .link-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-color: #667eea;
-        }
-
-        .link-card h4 {
-            font-size: 0.95rem;
-            margin-bottom: 6px;
-            font-weight: 600;
-        }
-
-        .link-card p {
-            font-size: 0.8rem;
-            opacity: 0.8;
-            line-height: 1.4;
-        }
-
-        /* Table Styles for Google Sheets */
+        /* Table Container */
         .table-container {
-            background: rgba(255, 255, 255, 0.95);
+            background: white;
             border-radius: 12px;
-            padding: 0;
-            box-shadow: 0 6px 25px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             overflow: hidden;
         }
 
         .table-header {
-            padding: 20px 25px;
-            border-bottom: 1px solid #e5e7eb;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            border-bottom: 1px solid #e2e8f0;
         }
 
-        .table-header h3 {
-            color: #333;
+        .table-header h2 {
+            font-size: 1.25rem;
+            color: #1e293b;
             margin: 0;
-            font-size: 1.3rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
         .table-controls {
-            padding: 15px 25px;
-            border-bottom: 1px solid #e5e7eb;
-            background: #f8f9fa;
+            padding: 1rem 1.5rem;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
             display: flex;
-            gap: 15px;
+            gap: 1rem;
             align-items: center;
             flex-wrap: wrap;
         }
 
-        .search-box {
+        .search-input {
             flex: 1;
-            min-width: 200px;
-            padding: 8px 15px;
-            border: 2px solid #e5e7eb;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            transition: border-color 0.2s ease;
+            min-width: 250px;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
         }
 
-        .search-box:focus {
+        .search-input:focus {
             outline: none;
             border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
         .filter-btn {
-            padding: 8px 15px;
-            background: #e5e7eb;
-            color: #374151;
+            padding: 0.5rem 1rem;
+            background: #e2e8f0;
             border: none;
-            border-radius: 8px;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            color: #475569;
             cursor: pointer;
-            font-size: 0.85rem;
             transition: all 0.2s ease;
         }
 
         .filter-btn:hover {
-            background: #d1d5db;
-            transform: translateY(-1px);
+            background: #cbd5e1;
         }
 
         .filter-btn.active {
@@ -316,128 +209,95 @@
             color: white;
         }
 
+        /* Table */
+        .table-wrapper {
+            overflow-x: auto;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
         .sheets-table {
             width: 100%;
             border-collapse: collapse;
-            overflow-x: auto;
         }
 
         .sheets-table th {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #667eea;
             color: white;
-            padding: 15px 20px;
+            padding: 1rem;
             text-align: left;
             font-weight: 600;
-            font-size: 0.9rem;
-            border-bottom: 2px solid #5a67d8;
+            font-size: 0.875rem;
             position: sticky;
             top: 0;
             z-index: 10;
         }
 
         .sheets-table td {
-            padding: 15px 20px;
-            border-bottom: 1px solid #e5e7eb;
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
             vertical-align: middle;
         }
 
         .sheets-table tr:hover {
-            background: rgba(102, 126, 234, 0.05);
+            background: #f8fafc;
         }
 
-        .sheet-name {
-            font-weight: 600;
-            color: #333;
-            text-decoration: none;
+        .sheet-link {
             display: flex;
             align-items: center;
-            gap: 8px;
-            transition: color 0.2s ease;
+            text-decoration: none;
+            color: #1e293b;
+            font-weight: 500;
         }
 
-        .sheet-name:hover {
+        .sheet-link:hover {
             color: #667eea;
         }
 
         .sheet-icon {
-            font-size: 1.1rem;
+            margin-right: 0.5rem;
+            font-size: 1.125rem;
         }
 
         .category-badge {
             display: inline-block;
-            padding: 4px 10px;
-            border-radius: 15px;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
             font-size: 0.75rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
-        .category-purchasing {
-            background: #fef3c7;
-            color: #92400e;
-        }
+        .badge-purchasing { background: #fef3c7; color: #92400e; }
+        .badge-financial { background: #d1fae5; color: #065f46; }
+        .badge-operations { background: #dbeafe; color: #1e40af; }
+        .badge-analytics { background: #fee2e2; color: #991b1b; }
+        .badge-planning { background: #f3e8ff; color: #7c2d12; }
 
-        .category-financial {
-            background: #d1fae5;
-            color: #065f46;
-        }
-
-        .category-operations {
-            background: #dbeafe;
-            color: #1e40af;
-        }
-
-        .category-planning {
-            background: #f3e8ff;
-            color: #7c2d12;
-        }
-
-        .category-analytics {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
-        .status-indicator {
+        .status-dot {
             display: inline-block;
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            margin-right: 8px;
+            margin-right: 0.5rem;
         }
 
-        .status-active {
-            background: #10b981;
-        }
-
-        .status-inactive {
-            background: #6b7280;
-        }
-
-        .status-updated {
-            background: #f59e0b;
-        }
-
-        .last-modified {
-            color: #6b7280;
-            font-size: 0.85rem;
-        }
+        .status-active { background: #10b981; }
+        .status-updated { background: #f59e0b; }
 
         .action-buttons {
             display: flex;
-            gap: 8px;
+            gap: 0.5rem;
         }
 
-        .action-btn {
-            padding: 6px 12px;
+        .btn {
+            padding: 0.375rem 0.75rem;
             border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.8rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
             text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
+            cursor: pointer;
             transition: all 0.2s ease;
         }
 
@@ -448,30 +308,84 @@
 
         .btn-primary:hover {
             background: #5a67d8;
-            transform: translateY(-1px);
         }
 
         .btn-secondary {
-            background: #e5e7eb;
-            color: #374151;
+            background: #e2e8f0;
+            color: #475569;
         }
 
         .btn-secondary:hover {
-            background: #d1d5db;
+            background: #cbd5e1;
         }
 
-        .table-stats {
-            padding: 15px 25px;
-            background: #f8f9fa;
-            border-top: 1px solid #e5e7eb;
-            color: #6b7280;
-            font-size: 0.85rem;
+        .table-footer {
+            padding: 1rem 1.5rem;
+            background: #f8fafc;
+            color: #64748b;
+            font-size: 0.875rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        /* Responsive Design */
+        /* Card Layout for other sections */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h3 {
+            font-size: 1.125rem;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+
+        .link-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .link-item {
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            border-radius: 8px;
+            padding: 1rem;
+            text-decoration: none;
+            color: #1e293b;
+            transition: all 0.2s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .link-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .link-item h4 {
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+            font-weight: 600;
+        }
+
+        .link-item p {
+            font-size: 0.75rem;
+            opacity: 0.8;
+        }
+
+        /* Mobile */
         @media (max-width: 768px) {
             .sidebar {
                 transform: translateX(-100%);
@@ -485,161 +399,90 @@
                 margin-left: 0;
             }
 
-            .menu-toggle {
-                display: block;
-            }
-
-            .content-title {
-                font-size: 1.5rem;
-            }
-
-            .section-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .links-grid {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            }
-
             .table-controls {
                 flex-direction: column;
                 align-items: stretch;
             }
 
-            .search-box {
+            .search-input {
                 min-width: auto;
             }
-
-            .sheets-table {
-                font-size: 0.85rem;
-            }
-
-            .sheets-table th,
-            .sheets-table td {
-                padding: 10px 15px;
-            }
-
-            .action-buttons {
-                flex-direction: column;
-            }
-        }
-
-        /* Scrollbar Styling */
-        .sidebar::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .sidebar::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .sidebar::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 3px;
-        }
-
-        .sidebar::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 255, 255, 0.5);
         }
     </style>
 </head>
 <body>
-    <div class="app-container">
-        <!-- Sidebar Navigation -->
+    <div class="dashboard-container">
+        <!-- Sidebar -->
         <nav class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <h1>📊 Dashboard</h1>
-                <p>Welcome back!</p>
+                <p>Business Hub</p>
             </div>
 
-            <div class="nav-section">
+            <div class="nav-group">
                 <h3>Main</h3>
-                <a href="#" class="nav-item active" data-section="overview">
+                <a class="nav-item active" data-section="overview">
                     <span class="icon">🏠</span>
                     <span class="text">Overview</span>
                 </a>
-                <a href="#" class="nav-item" data-section="sheets">
+                <a class="nav-item" data-section="sheets">
                     <span class="icon">📊</span>
                     <span class="text">Google Sheets</span>
-                    <span class="badge">18</span>
+                    <span class="badge">43</span>
                 </a>
-                <a href="#" class="nav-item" data-section="apps">
+                <a class="nav-item" data-section="apps">
                     <span class="icon">🚀</span>
                     <span class="text">Web Apps</span>
                 </a>
-                <a href="#" class="nav-item" data-section="reports">
+                <a class="nav-item" data-section="reports">
                     <span class="icon">📈</span>
                     <span class="text">Reports</span>
                 </a>
             </div>
 
-            <div class="nav-section">
+            <div class="nav-group">
                 <h3>Business</h3>
-                <a href="#" class="nav-item" data-section="finance">
+                <a class="nav-item" data-section="finance">
                     <span class="icon">💰</span>
                     <span class="text">Finance</span>
                 </a>
-                <a href="#" class="nav-item" data-section="operations">
+                <a class="nav-item" data-section="operations">
                     <span class="icon">⚙️</span>
                     <span class="text">Operations</span>
                 </a>
-                <a href="#" class="nav-item" data-section="hr">
-                    <span class="icon">👥</span>
-                    <span class="text">HR & People</span>
-                </a>
-                <a href="#" class="nav-item" data-section="projects">
+                <a class="nav-item" data-section="projects">
                     <span class="icon">📋</span>
                     <span class="text">Projects</span>
-                    <span class="badge">3</span>
-                </a>
-            </div>
-
-            <div class="nav-section">
-                <h3>Tools</h3>
-                <a href="#" class="nav-item" data-section="documents">
-                    <span class="icon">📄</span>
-                    <span class="text">Documents</span>
-                </a>
-                <a href="#" class="nav-item" data-section="settings">
-                    <span class="icon">⚙️</span>
-                    <span class="text">Settings</span>
-                </a>
-                <a href="#" class="nav-item" data-section="help">
-                    <span class="icon">❓</span>
-                    <span class="text">Help & Support</span>
                 </a>
             </div>
         </nav>
 
         <!-- Main Content -->
-        <main class="main-content" id="mainContent">
+        <main class="main-content">
             <div class="content-header">
-                <button class="menu-toggle" id="menuToggle">☰</button>
-                <div>
-                    <h1 class="content-title">Dashboard Overview</h1>
-                    <p class="content-subtitle">Manage all your business tools and data</p>
-                </div>
+                <h1>Dashboard Overview</h1>
+                <p>Manage all your business tools and data</p>
             </div>
 
             <!-- Overview Section -->
             <div class="content-section active" id="overview">
-                <div class="section-grid">
+                <div class="card-grid">
                     <div class="card">
                         <h3>🚀 Quick Access</h3>
-                        <div class="links-grid">
-                            <a href="https://gmail.com" class="link-card" target="_blank">
+                        <div class="link-grid">
+                            <a href="https://mail.google.com/mail/u/0/#inbox" class="link-item" target="_blank">
                                 <h4>Gmail</h4>
                                 <p>Email management</p>
                             </a>
-                            <a href="https://chatgpt.com" class="link-card" target="_blank">
+                            <a href="https://chatgpt.com/" class="link-item" target="_blank">
                                 <h4>ChatGPT</h4>
                                 <p>AI assistant</p>
                             </a>
-                            <a href="https://web.whatsapp.com" class="link-card" target="_blank">
+                            <a href="https://web.whatsapp.com/" class="link-item" target="_blank">
                                 <h4>WhatsApp</h4>
                                 <p>Messaging</p>
                             </a>
-                            <a href="https://app.slack.com/client/TBZ1WQHEH" class="link-card" target="_blank">
+                            <a href="https://app.slack.com/client/TBZ1WQHEH/D05P7P8H1TN" class="link-item" target="_blank">
                                 <h4>Slack</h4>
                                 <p>Team chat</p>
                             </a>
@@ -648,14 +491,14 @@
 
                     <div class="card">
                         <h3>📊 Recent Sheets</h3>
-                        <div class="links-grid">
-                            <a href="https://docs.google.com/spreadsheets/d/1bpJcOZ6IRjeQ-LOZq8uXP2EXNrFoZh-KUCscVxTuu0k" class="link-card" target="_blank">
+                        <div class="link-grid">
+                            <a href="https://docs.google.com/spreadsheets/d/1bpJcOZ6IRjeQ-LOZq8uXP2EXNrFoZh-KUCscVxTuu0k/edit?gid=192791778#gid=192791778" class="link-item" target="_blank">
                                 <h4>AK Purchasing</h4>
-                                <p>Vendor purchasing data</p>
+                                <p>Vendor purchasing</p>
                             </a>
-                            <a href="https://docs.google.com/spreadsheets/d/1724dPl9lin8dz4IoSN3nLJp7_ub7NUYS9hKngx2Qj0o" class="link-card" target="_blank">
-                                <h4>BT Purchasing</h4>
-                                <p>Vendor purchasing data</p>
+                            <a href="https://docs.google.com/spreadsheets/d/1pKpgqcMDATrY79wTE5QELrrWL38PginDZ3DdMrfHfTg/edit?gid=861326680#gid=861326680" class="link-item" target="_blank">
+                                <h4>Financial Dashboard</h4>
+                                <p>Financial overview</p>
                             </a>
                         </div>
                     </div>
@@ -666,306 +509,62 @@
             <div class="content-section" id="sheets">
                 <div class="table-container">
                     <div class="table-header">
-                        <h3>📊 Google Sheets Management</h3>
+                        <h2>📊 Google Sheets (43 total)</h2>
                     </div>
                     
                     <div class="table-controls">
-                        <input type="text" class="search-box" id="sheetsSearch" placeholder="Search sheets by name, category, or description...">
+                        <input type="text" class="search-input" id="searchInput" placeholder="Search sheets...">
                         <button class="filter-btn active" data-filter="all">All</button>
                         <button class="filter-btn" data-filter="purchasing">Purchasing</button>
                         <button class="filter-btn" data-filter="financial">Financial</button>
                         <button class="filter-btn" data-filter="operations">Operations</button>
-                        <button class="filter-btn" data-filter="planning">Planning</button>
                         <button class="filter-btn" data-filter="analytics">Analytics</button>
+                        <button class="filter-btn" data-filter="planning">Planning</button>
                     </div>
 
-                    <table class="sheets-table" id="sheetsTable">
-                        <thead>
-                            <tr>
-                                <th>Sheet Name</th>
-                                <th>Category</th>
-                                <th>Description</th>
-                                <th>Status</th>
-                                <th>Last Modified</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr data-category="purchasing">
-                                <td>
-                                    <a href="https://docs.google.com/spreadsheets/d/1bpJcOZ6IRjeQ-LOZq8uXP2EXNrFoZh-KUCscVxTuu0k" class="sheet-name" target="_blank">
-                                        <span class="sheet-icon">📊</span>
-                                        AK Purchasing
-                                    </a>
-                                </td>
-                                <td><span class="category-badge category-purchasing">Purchasing</span></td>
-                                <td>AK vendor purchasing and procurement tracking</td>
-                                <td><span class="status-indicator status-active"></span>Active</td>
-                                <td class="last-modified">2 days ago</td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <a href="https://docs.google.com/spreadsheets/d/1bpJcOZ6IRjeQ-LOZq8uXP2EXNrFoZh-KUCscVxTuu0k" class="action-btn btn-primary" target="_blank">
-                                            📄 Open
-                                        </a>
-                                        <button class="action-btn btn-secondary copy-link">📋 Copy Link</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr data-category="purchasing">
-                                <td>
-                                    <a href="https://docs.google.com/spreadsheets/d/1724dPl9lin8dz4IoSN3nLJp7_ub7NUYS9hKngx2Qj0o" class="sheet-name" target="_blank">
-                                        <span class="sheet-icon">📊</span>
-                                        BT Purchasing
-                                    </a>
-                                </td>
-                                <td><span class="category-badge category-purchasing">Purchasing</span></td>
-                                <td>BT vendor purchasing and supply chain management</td>
-                                <td><span class="status-indicator status-updated"></span>Recently Updated</td>
-                                <td class="last-modified">1 day ago</td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <a href="https://docs.google.com/spreadsheets/d/1724dPl9lin8dz4IoSN3nLJp7_ub7NUYS9hKngx2Qj0o" class="action-btn btn-primary" target="_blank">
-                                            📄 Open
-                                        </a>
-                                        <button class="action-btn btn-secondary copy-link">📋 Copy Link</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr data-category="purchasing">
-                                <td>
-                                    <a href="https://docs.google.com/spreadsheets/d/1q0Y_YmbT1ohUFwG3TwxK3t2Z7l4Q63qcRJelHlUdDlg" class="sheet-name" target="_blank">
-                                        <span class="sheet-icon">📊</span>
-                                        AG Purchasing
-                                    </a>
-                                </td>
-                                <td><span class="category-badge category-purchasing">Purchasing</span></td>
-                                <td>AG vendor purchasing and cost analysis</td>
-                                <td><span class="status-indicator status-active"></span>Active</td>
-                                <td class="last-modified">3 days ago</td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <a href="https://docs.google.com/spreadsheets/d/1q0Y_YmbT1ohUFwG3TwxK3t2Z7l4Q63qcRJelHlUdDlg" class="action-btn btn-primary" target="_blank">
-                                            📄 Open
-                                        </a>
-                                        <button class="action-btn btn-secondary copy-link">📋 Copy Link</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr data-category="purchasing">
-                                <td>
-                                    <a href="https://docs.google.com/spreadsheets/d/1JGHGfRIA6wTat8ENoENBWwaVERqtGUN0CiHiduHC6hw" class="sheet-name" target="_blank">
-                                        <span class="sheet-icon">📊</span>
-                                        ZC Purchasing
-                                    </a>
-                                </td>
-                                <td><span class="category-badge category-purchasing">Purchasing</span></td>
-                                <td>ZC vendor purchasing and inventory control</td>
-                                <td><span class="status-indicator status-active"></span>Active</td>
-                                <td class="last-modified">1 week ago</td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <a href="https://docs.google.com/spreadsheets/d/1JGHGfRIA6wTat8ENoENBWwaVERqtGUN0CiHiduHC6hw" class="action-btn btn-primary" target="_blank">
-                                            📄 Open
-                                        </a>
-                                        <button class="action-btn btn-secondary copy-link">📋 Copy Link</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr data-category="purchasing">
-                                <td>
-                                    <a href="https://docs.google.com/spreadsheets/d/1uV5uoallbsFwi4BNf9db8GeUnK5GGuPo8fipG02rL9I" class="sheet-name" target="_blank">
-                                        <span class="sheet-icon">📊</span>
-                                        CP Purchasing
-                                    </a>
-                                </td>
-                                <td><span class="category-badge category-purchasing">Purchasing</span></td>
-                                <td>CP vendor purchasing and budget tracking</td>
-                                <td><span class="status-indicator status-updated"></span>Recently Updated</td>
-                                <td class="last-modified">6 hours ago</td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <a href="https://docs.google.com/spreadsheets/d/1uV5uoallbsFwi4BNf9db8GeUnK5GGuPo8fipG02rL9I" class="action-btn btn-primary" target="_blank">
-                                            📄 Open
-                                        </a>
-                                        <button class="action-btn btn-secondary copy-link">📋 Copy Link</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr data-category="purchasing">
-                                <td>
-                                    <a href="https://docs.google.com/spreadsheets/d/1gfnil9pBjvKXvSTnxY7mufE5-tTRtKdccCSCR9WPa5Q" class="sheet-name" target="_blank">
-                                        <span class="sheet-icon">📊</span>
-                                        JK Purchasing
-                                    </a>
-                                </td>
-                                <td><span class="category-badge category-purchasing">Purchasing</span></td>
-                                <td>JK vendor purchasing and supplier management</td>
-                                <td><span class="status-indicator status-active"></span>Active</td>
-                                <td class="last-modified">4 days ago</td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <a href="https://docs.google.com/spreadsheets/d/1gfnil9pBjvKXvSTnxY7mufE5-tTRtKdccCSCR9WPa5Q" class="action-btn btn-primary" target="_blank">
-                                            📄 Open
-                                        </a>
-                                        <button class="action-btn btn-secondary copy-link">📋 Copy Link</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr data-category="financial">
-                                <td>
-                                    <a href="#" class="sheet-name">
-                                        <span class="sheet-icon">💰</span>
-                                        Budget 2025
-                                    </a>
-                                </td>
-                                <td><span class="category-badge category-financial">Financial</span></td>
-                                <td>Annual budget planning and monthly tracking</td>
-                                <td><span class="status-indicator status-active"></span>Active</td>
-                                <td class="last-modified">2 days ago</td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <a href="#" class="action-btn btn-primary">📄 Open</a>
-                                        <button class="action-btn btn-secondary copy-link">📋 Copy Link</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr data-category="financial">
-                                <td>
-                                    <a href="#" class="sheet-name">
-                                        <span class="sheet-icon">💳</span>
-                                        Expense Tracker
-                                    </a>
-                                </td>
-                                <td><span class="category-badge category-financial">Financial</span></td>
-                                <td>Daily expense logging and categorization</td>
-                                <td><span class="status-indicator status-updated"></span>Recently Updated</td>
-                                <td class="last-modified">12 hours ago</td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <a href="#" class="action-btn btn-primary">📄 Open</a>
-                                        <button class="action-btn btn-secondary copy-link">📋 Copy Link</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr data-category="financial">
-                                <td>
-                                    <a href="#" class="sheet-name">
-                                        <span class="sheet-icon">📈</span>
-                                        Revenue Tracking
-                                    </a>
-                                </td>
-                                <td><span class="category-badge category-financial">Financial</span></td>
-                                <td>Monthly revenue data and growth analysis</td>
-                                <td><span class="status-indicator status-active"></span>Active</td>
-                                <td class="last-modified">1 day ago</td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <a href="#" class="action-btn btn-primary">📄 Open</a>
-                                        <button class="action-btn btn-secondary copy-link">📋 Copy Link</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr data-category="operations">
-                                <td>
-                                    <a href="#" class="sheet-name">
-                                        <span class="sheet-icon">👥</span>
-                                        Staff Schedule
-                                    </a>
-                                </td>
-                                <td><span class="category-badge category-operations">Operations</span></td>
-                                <td>Team availability and shift management</td>
-                                <td><span class="status-indicator status-updated"></span>Recently Updated</td>
-                                <td class="last-modified">4 hours ago</td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <a href="#" class="action-btn btn-primary">📄 Open</a>
-                                        <button class="action-btn btn-secondary copy-link">📋 Copy Link</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr data-category="operations">
-                                <td>
-                                    <a href="#" class="sheet-name">
-                                        <span class="sheet-icon">📦</span>
-                                        Inventory Management
-                                    </a>
-                                </td>
-                                <td><span class="category-badge category-operations">Operations</span></td>
-                                <td>Stock levels and inventory control</td>
-                                <td><span class="status-indicator status-active"></span>Active</td>
-                                <td class="last-modified">1 day ago</td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <a href="#" class="action-btn btn-primary">📄 Open</a>
-                                        <button class="action-btn btn-secondary copy-link">📋 Copy Link</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr data-category="planning">
-                                <td>
-                                    <a href="#" class="sheet-name">
-                                        <span class="sheet-icon">🎯</span>
-                                        Project Roadmap
-                                    </a>
-                                </td>
-                                <td><span class="category-badge category-planning">Planning</span></td>
-                                <td>Q2 project roadmap and milestones</td>
-                                <td><span class="status-indicator status-active"></span>Active</td>
-                                <td class="last-modified">3 days ago</td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <a href="#" class="action-btn btn-primary">📄 Open</a>
-                                        <button class="action-btn btn-secondary copy-link">📋 Copy Link</button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr data-category="analytics">
-                                <td>
-                                    <a href="#" class="sheet-name">
-                                        <span class="sheet-icon">📊</span>
-                                        Sales Analytics
-                                    </a>
-                                </td>
-                                <td><span class="category-badge category-analytics">Analytics</span></td>
-                                <td>Sales performance and trend analysis</td>
-                                <td><span class="status-indicator status-active"></span>Active</td>
-                                <td class="last-modified">1 day ago</td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <a href="#" class="action-btn btn-primary">📄 Open</a>
-                                        <button class="action-btn btn-secondary copy-link">📋 Copy Link</button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-wrapper">
+                        <table class="sheets-table">
+                            <thead>
+                                <tr>
+                                    <th>Sheet Name</th>
+                                    <th>Category</th>
+                                    <th>Description</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="sheetsTableBody">
+                                <!-- Table rows will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
 
-                    <div class="table-stats">
-                        <span id="sheetCount">Showing 12 of 12 sheets</span>
-                        <span>Last updated: Today at 2:30 PM</span>
+                    <div class="table-footer">
+                        <span id="sheetCount">Showing 43 of 43 sheets</span>
+                        <span>Last updated: Today</span>
                     </div>
                 </div>
             </div>
 
             <!-- Web Apps Section -->
             <div class="content-section" id="apps">
-                <div class="section-grid">
+                <div class="card-grid">
                     <div class="card">
                         <h3>🚀 Productivity Apps</h3>
-                        <div class="links-grid">
-                            <a href="https://gmail.com" class="link-card" target="_blank">
+                        <div class="link-grid">
+                            <a href="https://mail.google.com/mail/u/0/#inbox" class="link-item" target="_blank">
                                 <h4>Gmail</h4>
                                 <p>Email management</p>
                             </a>
-                            <a href="https://chatgpt.com" class="link-card" target="_blank">
+                            <a href="https://chatgpt.com/" class="link-item" target="_blank">
                                 <h4>ChatGPT</h4>
                                 <p>AI assistant</p>
                             </a>
-                            <a href="https://web.whatsapp.com" class="link-card" target="_blank">
+                            <a href="https://web.whatsapp.com/" class="link-item" target="_blank">
                                 <h4>WhatsApp</h4>
-                                <p>Messaging platform</p>
+                                <p>Messaging</p>
                             </a>
-                            <a href="https://app.hubstaff.com/" class="link-card" target="_blank">
+                            <a href="https://app.hubstaff.com/organizations/571164/team_payments/past" class="link-item" target="_blank">
                                 <h4>Hubstaff</h4>
                                 <p>Time tracking</p>
                             </a>
@@ -974,22 +573,22 @@
 
                     <div class="card">
                         <h3>💼 Business Tools</h3>
-                        <div class="links-grid">
-                            <a href="https://app.slack.com/client/TBZ1WQHEH" class="link-card" target="_blank">
+                        <div class="link-grid">
+                            <a href="https://app.slack.com/client/TBZ1WQHEH/D05P7P8H1TN" class="link-item" target="_blank">
                                 <h4>Slack</h4>
                                 <p>Team communication</p>
                             </a>
-                            <a href="https://my.anchor.sh/home" class="link-card" target="_blank">
+                            <a href="https://my.anchor.sh/home" class="link-item" target="_blank">
                                 <h4>Anchor</h4>
                                 <p>Project management</p>
                             </a>
-                            <a href="https://keeper.app/client-list" class="link-card" target="_blank">
+                            <a href="https://keeper.app/client-list" class="link-item" target="_blank">
                                 <h4>Keeper</h4>
                                 <p>Client management</p>
                             </a>
-                            <a href="https://github.com" class="link-card" target="_blank">
-                                <h4>GitHub</h4>
-                                <p>Code repositories</p>
+                            <a href="https://web.instantbookkeeper.com/#" class="link-item" target="_blank">
+                                <h4>Instant Bookkeeper</h4>
+                                <p>Bookkeeping</p>
                             </a>
                         </div>
                     </div>
@@ -998,25 +597,25 @@
 
             <!-- Reports Section -->
             <div class="content-section" id="reports">
-                <div class="section-grid">
+                <div class="card-grid">
                     <div class="card">
                         <h3>📈 Analytics & Reports</h3>
-                        <div class="links-grid">
-                            <a href="https://app.fathomhq.com/" class="link-card" target="_blank">
+                        <div class="link-grid">
+                            <a href="https://app.fathomhq.com/company/HGgGyE/analysis/financials?rangeId=398000133&comparison=priorPeriod&detailLevel=summary&type=profitAndLoss&layout=normal" class="link-item" target="_blank">
                                 <h4>Fathom Analytics</h4>
-                                <p>Website analytics</p>
+                                <p>Financial analytics</p>
                             </a>
-                            <a href="https://lookerstudio.google.com/reporting/7d4fac36-88ab-4864-a027-4d767d98d9c8/page/p_pkr0amo72c" class="link-card" target="_blank">
+                            <a href="https://lookerstudio.google.com/reporting/7d4fac36-88ab-4864-a027-4d767d98d9c8/page/p_2hk2yddn1c" class="link-item" target="_blank">
                                 <h4>Sales Dashboard</h4>
-                                <p>Sales metrics & performance</p>
+                                <p>Sales metrics</p>
                             </a>
-                            <a href="https://lookerstudio.google.com/reporting/d6d0fec9-482d-47b3-9c56-111d8d8ea357/page/p_paqj9iy7nd" class="link-card" target="_blank">
+                            <a href="https://lookerstudio.google.com/reporting/d6d0fec9-482d-47b3-9c56-111d8d8ea357/page/p_paqj9iy7nd" class="link-item" target="_blank">
                                 <h4>ROI Analysis</h4>
-                                <p>Return on investment tracking</p>
+                                <p>Investment tracking</p>
                             </a>
-                            <a href="https://lookerstudio.google.com/u/0/reporting/e1aaf9ad-c3d1-44c1-a994-00c97ab5a0ce/page/p_eed8ll4krd" class="link-card" target="_blank">
+                            <a href="https://lookerstudio.google.com/u/0/reporting/e1aaf9ad-c3d1-44c1-a994-00c97ab5a0ce/page/p_eed8ll4krd" class="link-item" target="_blank">
                                 <h4>Inventory Analysis</h4>
-                                <p>Inventory value & trends</p>
+                                <p>Inventory trends</p>
                             </a>
                         </div>
                     </div>
@@ -1025,25 +624,25 @@
 
             <!-- Finance Section -->
             <div class="content-section" id="finance">
-                <div class="section-grid">
+                <div class="card-grid">
                     <div class="card">
-                        <h3>💰 Financial Management</h3>
-                        <div class="links-grid">
-                            <a href="#" class="link-card">
+                        <h3>💰 Financial Tools</h3>
+                        <div class="link-grid">
+                            <a href="https://accounts.intuit.com/app/sign-in?app_group=QBO&asset_alias=Intuit.accounting.core.qbowebapp&app_environment=prod" class="link-item" target="_blank">
                                 <h4>QuickBooks</h4>
                                 <p>Accounting software</p>
                             </a>
-                            <a href="#" class="link-card">
-                                <h4>PayPal</h4>
+                            <a href="https://wise.com/login?autoLogout=true" class="link-item" target="_blank">
+                                <h4>Wise</h4>
+                                <p>International transfers</p>
+                            </a>
+                            <a href="https://app.intl.pingpongx.com/dashboard/history" class="link-item" target="_blank">
+                                <h4>PingPong</h4>
                                 <p>Payment processing</p>
                             </a>
-                            <a href="#" class="link-card">
-                                <h4>Stripe</h4>
-                                <p>Payment gateway</p>
-                            </a>
-                            <a href="#" class="link-card">
-                                <h4>Tax Tracker</h4>
-                                <p>Tax document management</p>
+                            <a href="https://importer.synder.com/login/auth" class="link-item" target="_blank">
+                                <h4>Synder</h4>
+                                <p>Financial sync</p>
                             </a>
                         </div>
                     </div>
@@ -1052,52 +651,17 @@
 
             <!-- Operations Section -->
             <div class="content-section" id="operations">
-                <div class="section-grid">
+                <div class="card-grid">
                     <div class="card">
-                        <h3>⚙️ Operations Management</h3>
-                        <div class="links-grid">
-                            <a href="#" class="link-card">
+                        <h3>⚙️ Operations</h3>
+                        <div class="link-grid">
+                            <a href="https://demo.inventoryahead.com/products?curTab=kits" class="link-item" target="_blank">
+                                <h4>Inventory Ahead</h4>
+                                <p>Inventory management</p>
+                            </a>
+                            <a href="https://docs.google.com/document/d/1PUHCt6VXUIkhOhk5NJmzmXW6YZBfupjRB49EOE5y79w/edit?tab=t.0#heading=h.5ica75mlewi5" class="link-item" target="_blank">
                                 <h4>Process Docs</h4>
-                                <p>Standard operating procedures</p>
-                            </a>
-                            <a href="#" class="link-card">
-                                <h4>Supply Chain</h4>
-                                <p>Vendor & supplier management</p>
-                            </a>
-                            <a href="#" class="link-card">
-                                <h4>Quality Control</h4>
-                                <p>QC processes & checklists</p>
-                            </a>
-                            <a href="#" class="link-card">
-                                <h4>Equipment Log</h4>
-                                <p>Asset & equipment tracking</p>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- HR Section -->
-            <div class="content-section" id="hr">
-                <div class="section-grid">
-                    <div class="card">
-                        <h3>👥 Human Resources</h3>
-                        <div class="links-grid">
-                            <a href="#" class="link-card">
-                                <h4>Employee Portal</h4>
-                                <p>Staff information & records</p>
-                            </a>
-                            <a href="#" class="link-card">
-                                <h4>Payroll System</h4>
-                                <p>Salary & benefits management</p>
-                            </a>
-                            <a href="#" class="link-card">
-                                <h4>Performance</h4>
-                                <p>Performance reviews & goals</p>
-                            </a>
-                            <a href="#" class="link-card">
-                                <h4>Training</h4>
-                                <p>Training & development</p>
+                                <p>SOPs and procedures</p>
                             </a>
                         </div>
                     </div>
@@ -1106,106 +670,17 @@
 
             <!-- Projects Section -->
             <div class="content-section" id="projects">
-                <div class="section-grid">
+                <div class="card-grid">
                     <div class="card">
                         <h3>📋 Project Management</h3>
-                        <div class="links-grid">
-                            <a href="https://trello.com" class="link-card" target="_blank">
+                        <div class="link-grid">
+                            <a href="https://trello.com" class="link-item" target="_blank">
                                 <h4>Trello</h4>
                                 <p>Project boards</p>
                             </a>
-                            <a href="https://notion.so" class="link-card" target="_blank">
+                            <a href="https://notion.so" class="link-item" target="_blank">
                                 <h4>Notion</h4>
-                                <p>Notes & documentation</p>
-                            </a>
-                            <a href="#" class="link-card">
-                                <h4>Project Alpha</h4>
-                                <p>Active development project</p>
-                            </a>
-                            <a href="#" class="link-card">
-                                <h4>Project Beta</h4>
-                                <p>Marketing campaign</p>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Documents Section -->
-            <div class="content-section" id="documents">
-                <div class="section-grid">
-                    <div class="card">
-                        <h3>📄 Document Management</h3>
-                        <div class="links-grid">
-                            <a href="#" class="link-card">
-                                <h4>Company Policies</h4>
-                                <p>HR handbook & policies</p>
-                            </a>
-                            <a href="#" class="link-card">
-                                <h4>Meeting Notes</h4>
-                                <p>Weekly standup notes</p>
-                            </a>
-                            <a href="#" class="link-card">
-                                <h4>SOPs</h4>
-                                <p>Standard procedures</p>
-                            </a>
-                            <a href="#" class="link-card">
-                                <h4>Templates</h4>
-                                <p>Document templates</p>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Settings Section -->
-            <div class="content-section" id="settings">
-                <div class="section-grid">
-                    <div class="card">
-                        <h3>⚙️ Dashboard Settings</h3>
-                        <div class="links-grid">
-                            <a href="#" class="link-card">
-                                <h4>User Preferences</h4>
-                                <p>Customize your experience</p>
-                            </a>
-                            <a href="#" class="link-card">
-                                <h4>Theme Settings</h4>
-                                <p>Change colors & layout</p>
-                            </a>
-                            <a href="#" class="link-card">
-                                <h4>Backup & Sync</h4>
-                                <p>Data backup options</p>
-                            </a>
-                            <a href="#" class="link-card">
-                                <h4>Account Settings</h4>
-                                <p>Manage your account</p>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Help Section -->
-            <div class="content-section" id="help">
-                <div class="section-grid">
-                    <div class="card">
-                        <h3>❓ Help & Support</h3>
-                        <div class="links-grid">
-                            <a href="#" class="link-card">
-                                <h4>User Guide</h4>
-                                <p>How to use the dashboard</p>
-                            </a>
-                            <a href="#" class="link-card">
-                                <h4>FAQ</h4>
-                                <p>Frequently asked questions</p>
-                            </a>
-                            <a href="#" class="link-card">
-                                <h4>Contact Support</h4>
-                                <p>Get help from our team</p>
-                            </a>
-                            <a href="#" class="link-card">
-                                <h4>System Status</h4>
-                                <p>Check service availability</p>
+                                <p>Documentation</p>
                             </a>
                         </div>
                     </div>
@@ -1215,205 +690,201 @@
     </div>
 
     <script>
-        // Navigation functionality
-        const navItems = document.querySelectorAll('.nav-item');
-        const contentSections = document.querySelectorAll('.content-section');
-        const menuToggle = document.getElementById('menuToggle');
-        const sidebar = document.getElementById('sidebar');
-        const mainContent = document.getElementById('mainContent');
-        const contentTitle = document.querySelector('.content-title');
-        const contentSubtitle = document.querySelector('.content-subtitle');
+        // All 43 Google Sheets data
+        const sheetsData = [
+            // Purchasing (7 sheets)
+            { name: "AK Purchasing", url: "https://docs.google.com/spreadsheets/d/1bpJcOZ6IRjeQ-LOZq8uXP2EXNrFoZh-KUCscVxTuu0k/edit?gid=192791778#gid=192791778", category: "purchasing", description: "AK vendor purchasing and procurement tracking", status: "active" },
+            { name: "BT Purchasing", url: "https://docs.google.com/spreadsheets/d/1724dPl9lin8dz4IoSN3nLJp7_ub7NUYS9hKngx2Qj0o/edit?pli=1&gid=425882281#gid=425882281", category: "purchasing", description: "BT vendor purchasing and supply chain", status: "updated" },
+            { name: "AG Purchasing", url: "https://docs.google.com/spreadsheets/d/1q0Y_YmbT1ohUFwG3TwxK3t2Z7l4Q63qcRJelHlUdDlg/edit?gid=1335858554#gid=1335858554", category: "purchasing", description: "AG vendor purchasing and cost analysis", status: "active" },
+            { name: "ZC Purchasing", url: "https://docs.google.com/spreadsheets/d/1JGHGfRIA6wTat8ENoENBWwaVERqtGUN0CiHiduHC6hw/edit?gid=268977121#gid=268977121", category: "purchasing", description: "ZC vendor purchasing and inventory control", status: "active" },
+            { name: "CP Purchasing", url: "https://docs.google.com/spreadsheets/d/1uV5uoallbsFwi4BNf9db8GeUnK5GGuPo8fipG02rL9I/edit?gid=1559664095#gid=1559664095", category: "purchasing", description: "CP vendor purchasing and budget tracking", status: "updated" },
+            { name: "JK Purchasing", url: "https://docs.google.com/spreadsheets/d/1gfnil9pBjvKXvSTnxY7mufE5-tTRtKdccCSCR9WPa5Q/edit?pli=1&gid=0#gid=0", category: "purchasing", description: "JK vendor purchasing and supplier management", status: "active" },
+            { name: "Additional Purchasing", url: "https://docs.google.com/spreadsheets/d/1Q0Obvq3J3hDcBnCGgcIRO33o19fZZ3jaqHGJ9HlPNUI/edit?gid=611132752#gid=611132752", category: "purchasing", description: "Additional purchasing and vendor management", status: "active" },
 
-        // Section titles and descriptions
-        const sectionInfo = {
-            overview: {
-                title: 'Dashboard Overview',
-                subtitle: 'Quick access to your most important tools and data'
-            },
-            sheets: {
-                title: 'Google Sheets',
-                subtitle: 'Manage all your spreadsheets and data analysis'
-            },
-            apps: {
-                title: 'Web Applications',
-                subtitle: 'Access your favorite productivity and business tools'
-            },
-            reports: {
-                title: 'Reports & Analytics',
-                subtitle: 'View insights and performance metrics'
-            },
-            finance: {
-                title: 'Financial Management',
-                subtitle: 'Handle accounting, payments, and financial planning'
-            },
-            operations: {
-                title: 'Operations',
-                subtitle: 'Manage day-to-day business operations'
-            },
-            hr: {
-                title: 'Human Resources',
-                subtitle: 'Employee management and HR processes'
-            },
-            projects: {
-                title: 'Project Management',
-                subtitle: 'Track and manage your active projects'
-            },
-            documents: {
-                title: 'Document Management',
-                subtitle: 'Access policies, procedures, and important documents'
-            },
-            settings: {
-                title: 'Settings',
-                subtitle: 'Customize your dashboard preferences'
-            },
-            help: {
-                title: 'Help & Support',
-                subtitle: 'Get assistance and learn how to use the dashboard'
-            }
-        };
+            // Financial (12 sheets)
+            { name: "Financial Dashboard", url: "https://docs.google.com/spreadsheets/d/1pKpgqcMDATrY79wTE5QELrrWL38PginDZ3DdMrfHfTg/edit?gid=861326680#gid=861326680", category: "financial", description: "Main financial tracking and overview", status: "active" },
+            { name: "Expense Tracking", url: "https://docs.google.com/spreadsheets/d/1e44B3UdtPkaq9mQEqDELHp3w6I4FVdkSsS0M_k9KI6s/edit?gid=0#gid=0", category: "financial", description: "Business expense tracking and categorization", status: "updated" },
+            { name: "Financial Analysis", url: "https://docs.google.com/spreadsheets/d/1Xc01mDWoxnmGtLdSkYYJXMcKzSPZSFqn6cGs0EAdiFA/edit?gid=2056201171#gid=2056201171", category: "financial", description: "Detailed financial analysis and reporting", status: "active" },
+            { name: "Business Analytics", url: "https://docs.google.com/spreadsheets/d/1VmXZwWlG4aWNlg02ohFQ8-vbRgBYDp2Se857ufFFizA/edit?gid=267894061#gid=267894061", category: "financial", description: "Business performance and financial analytics", status: "active" },
+            { name: "Financial Reports", url: "https://docs.google.com/spreadsheets/d/1AYYBVZY9QZcloYKTYZGDtchSju6MJT8nbeZDXzbBQxw/edit?gid=378461522#gid=378461522", category: "financial", description: "Comprehensive financial reporting", status: "active" },
+            { name: "Payment Processing", url: "https://docs.google.com/spreadsheets/d/1tXhHz3GUrIH-mvlvnev56eAltwwuOjqBXal3hffIkVo/edit?gid=251855370#gid=251855370", category: "financial", description: "Payment processing and transactions", status: "updated" },
+            { name: "Financial Metrics", url: "https://docs.google.com/spreadsheets/d/1a1CsR2FcimSmu6mGrlAaLqte0vHWVldxtvUiBOUIDMM/edit?gid=2056171306#gid=2056171306", category: "financial", description: "Key financial performance metrics", status: "active" },
+            { name: "Account Management", url: "https://docs.google.com/spreadsheets/d/1e6waeAw8KkCXfyMoJzBcbaKeN28g9qOuysZTU-gwkRE/edit?gid=0#gid=0", category: "financial", description: "Account and portfolio management", status: "active" },
+            { name: "Revenue Analysis", url: "https://docs.google.com/spreadsheets/d/15dVDT9QzqtKP1IR0yflTbxD6BF2VW6bGLwYLtqhO8uE/edit?gid=572505560#gid=572505560", category: "financial", description: "Revenue trends and analysis", status: "updated" },
+            { name: "Financial Tracking", url: "https://docs.google.com/spreadsheets/d/1-3u57r8UdEXiFSgh77-SrkTMTEJCQSw03kEDxTfhh2U/edit?gid=1527940908#gid=1527940908", category: "financial", description: "Detailed financial tracking and monitoring", status: "active" },
+            { name: "Financial Data", url: "https://docs.google.com/spreadsheets/d/1mSNk_8Qc91Crkdhqb9-YPwH6zakW0Nton9L_WE-uWxk/edit?gid=1478280450#gid=1478280450", category: "financial", description: "Financial data compilation and analysis", status: "active" },
+            { name: "Financial Planning", url: "https://docs.google.com/spreadsheets/d/1vDItP8jC2qOQMsSvE7ZDotc68l3AlSe7kIewEQ51WeU/edit?gid=0#gid=0", category: "financial", description: "Strategic financial planning", status: "updated" },
 
-        // Google Sheets Table Functionality
-        const sheetsSearch = document.getElementById('sheetsSearch');
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        const sheetsTable = document.getElementById('sheetsTable');
-        const sheetCount = document.getElementById('sheetCount');
+            // Operations (15 sheets)
+            { name: "Operations Dashboard", url: "https://docs.google.com/spreadsheets/d/1HZ1hPFhpC1j9fewyQXb_5a6SfXzMdgtvKPuAktfOfUs/edit?gid=1588171060#gid=1588171060", category: "operations", description: "Main operations tracking and management", status: "active" },
+            { name: "Inventory Tracking", url: "https://docs.google.com/spreadsheets/d/1Gze7JTtCexUsLWXWFUgee1A3geq_tFykM_wyiGaMGWI/edit?gid=1959450030#gid=1959450030", category: "operations", description: "Inventory levels and stock management", status: "updated" },
+            { name: "Task Management", url: "https://docs.google.com/spreadsheets/d/18H9fBgAkMhPB1UFAgjjndqNirEvIza0ZV0wXpRSXDTs/edit?gid=0#gid=0", category: "operations", description: "Project tasks and workflow tracking", status: "active" },
+            { name: "Operations Data", url: "https://docs.google.com/spreadsheets/d/1t65s04_lB4_rUPnqsR1Wc9WI1oFzffpFwjcyzTkNZV4/edit?gid=1507856515#gid=1507856515", category: "operations", description: "Operational data and metrics tracking", status: "active" },
+            { name: "Process Tracking", url: "https://docs.google.com/spreadsheets/d/1yFJhNU928iz18G4RIrqIcWUh-bUH7HFnnxcG0Ql6tFg/edit?gid=1220250983#gid=1220250983", category: "operations", description: "Business process and workflow tracking", status: "updated" },
+            { name: "System Operations", url: "https://docs.google.com/spreadsheets/d/1OWyjweGfWHc-GzxkoH-v92CpZJ7g-o1kXsB5R5bUW1Q/edit?gid=0#gid=0", category: "operations", description: "System and infrastructure operations", status: "active" },
+            { name: "Operational Metrics", url: "https://docs.google.com/spreadsheets/d/1ZZnNlLzrZ-Lqhyl8QS5JrfbjflXfp-jL-Pu9SLxK33U/edit?gid=1299891870#gid=1299891870", category: "operations", description: "Key operational performance indicators", status: "active" },
+            { name: "Operations Control", url: "https://docs.google.com/spreadsheets/d/1BW7nnVheQ9Z5hxR1XlUCPnhew0JV7pTa_wZx0ct0XjA/edit?gid=559840829#gid=559840829", category: "operations", description: "Operational control and monitoring", status: "active" },
+            { name: "Performance Ops", url: "https://docs.google.com/spreadsheets/d/1yPkAsKuVPU8vbuW01aetJ2AqODpm3iFGPbRTGB2hf2o/edit?gid=934129197#gid=934129197", category: "operations", description: "Performance operations and optimization", status: "updated" },
+            { name: "Operations Log", url: "https://docs.google.com/spreadsheets/d/1oK-hRqplt1tgtX8SWQU4uneIuzOOro4pF3nDqzXRzn8/edit?gid=0#gid=0", category: "operations", description: "Daily operations and activity log", status: "active" },
+            { name: "Workflow Management", url: "https://docs.google.com/spreadsheets/d/1b-4gu1tt9FZW-yvdFpH19r8I44FIS9FMq4q-7u01auY/edit?gid=857238593#gid=857238593", category: "operations", description: "Workflow and process management", status: "active" },
+            { name: "Operations Summary", url: "https://docs.google.com/spreadsheets/d/1GOsHLG10L4WPBgqehnuvCmdvoqKqNrqYIf5TF1mCJMM/edit?gid=0#gid=0", category: "operations", description: "Operations summary and reporting", status: "updated" },
+            { name: "Resource Management", url: "https://docs.google.com/spreadsheets/d/1ZWnk_DypTDp76_smPLL3qTmKG8y_d8AjgHIVqXVevx8/edit?gid=2133018527#gid=2133018527", category: "operations", description: "Resource allocation and management", status: "updated" },
 
-        // Initialize functionality
-        function initializeApp() {
-            // Search functionality
-            if (sheetsSearch) {
-                sheetsSearch.addEventListener('input', filterSheets);
-            }
+            // Analytics (8 sheets)
+            { name: "Sales Analytics", url: "https://docs.google.com/spreadsheets/d/1Y9Ojo57SmLiOYjAxQ2ZEog0MRdacjmTuFXLrr4M1aoo/edit?pli=1&gid=79640008#gid=79640008", category: "analytics", description: "Sales performance and revenue analysis", status: "active" },
+            { name: "Performance Metrics", url: "https://docs.google.com/spreadsheets/d/1x_bUolLQ5-SkSrjDF-xWnAVD3vQNkM0-JGCp0CnXO3o/edit?pli=1&gid=1535382667#gid=1535382667", category: "analytics", description: "KPI tracking and performance analysis", status: "active" },
+            { name: "Data Analysis", url: "https://docs.google.com/spreadsheets/d/1dPojjOwyF4fK7Ctn7Bv-gJ7Q936usMklvLXH-buSOFE/edit?pli=1&gid=772442070#gid=772442070", category: "analytics", description: "Comprehensive data analysis and insights", status: "updated" },
+            { name: "Advanced Analytics", url: "https://docs.google.com/spreadsheets/d/1rqsk7VCOCrPMUMmOBVXhwlPLIX9mAXfrRvyL96NNVt0/edit?gid=489995777#gid=489995777", category: "analytics", description: "Advanced data analysis and insights", status: "updated" },
+            { name: "Business Intelligence", url: "https://docs.google.com/spreadsheets/d/18OxY0RUwycl5J69IuQypoFyngsAtgXhFnnjZxXLisr4/edit?gid=1657507587#gid=1657507587", category: "analytics", description: "Business intelligence and reporting", status: "active" },
+            { name: "Data Research", url: "https://docs.google.com/spreadsheets/d/1fNk-uV3ERCuActYGmdFFgi6L7bp-zI1jwqde_qawB6Y/edit?gid=1150659743#gid=1150659743", category: "analytics", description: "Research data and market analysis", status: "active" },
+            { name: "Analytics Dashboard", url: "https://docs.google.com/spreadsheets/d/1uCgmhO7S1sr70ViklVpovBZ8TNsIEXaqZdo-4XZGlEM/edit?gid=297269190#gid=297269190", category: "analytics", description: "Comprehensive analytics dashboard", status: "updated" },
+            { name: "Data Insights", url: "https://docs.google.com/spreadsheets/d/1kvUxcToHbn4siEj0t28zN5lyOUesGSkKsSVRmMpRHGc/edit?gid=732071276#gid=732071276", category: "analytics", description: "Data insights and intelligence", status: "active" },
 
-            // Filter buttons
-            filterButtons.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    filterButtons.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    filterSheets();
-                });
-            });
-
-            // Copy link functionality
-            document.addEventListener('click', (e) => {
-                if (e.target.classList.contains('copy-link')) {
-                    const row = e.target.closest('tr');
-                    const link = row.querySelector('.sheet-name').href;
-                    if (navigator.clipboard) {
-                        navigator.clipboard.writeText(link).then(() => {
-                            e.target.textContent = '✅ Copied!';
-                            setTimeout(() => {
-                                e.target.textContent = '📋 Copy Link';
-                            }, 2000);
-                        });
-                    }
-                }
-            });
-        }
-
-        function filterSheets() {
-            if (!sheetsTable || !sheetCount) return;
-            
-            const searchTerm = sheetsSearch.value.toLowerCase();
-            const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
-            const sheetRows = sheetsTable.querySelectorAll('tbody tr');
-            let visibleCount = 0;
-
-            sheetRows.forEach(row => {
-                const name = row.querySelector('.sheet-name').textContent.toLowerCase();
-                const category = row.dataset.category;
-                const description = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
-                
-                const matchesSearch = name.includes(searchTerm) || description.includes(searchTerm);
-                const matchesFilter = activeFilter === 'all' || category === activeFilter;
-                
-                if (matchesSearch && matchesFilter) {
-                    row.style.display = '';
-                    visibleCount++;
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-
-            sheetCount.textContent = `Showing ${visibleCount} of ${sheetRows.length} sheets`;
-        }
-
-        // Handle navigation clicks
-        navItems.forEach(item => {
-            item.addEventListener('click', (e) => {
-                e.preventDefault();
-                
-                // Remove active class from all nav items
-                navItems.forEach(nav => nav.classList.remove('active'));
-                
-                // Add active class to clicked item
-                item.classList.add('active');
-                
-                // Get target section
-                const targetSection = item.getAttribute('data-section');
-                
-                // Hide all content sections
-                contentSections.forEach(section => {
-                    section.classList.remove('active');
-                });
-                
-                // Show target section
-                const targetElement = document.getElementById(targetSection);
-                if (targetElement) {
-                    targetElement.classList.add('active');
-                    
-                    // Update header
-                    const info = sectionInfo[targetSection];
-                    if (info) {
-                        contentTitle.textContent = info.title;
-                        contentSubtitle.textContent = info.subtitle;
-                    }
-                }
-                
-                // Close sidebar on mobile after selection
-                if (window.innerWidth <= 768) {
-                    sidebar.classList.remove('open');
-                    mainContent.classList.remove('expanded');
-                }
-            });
-        });
-
-        // Handle mobile menu toggle
-        menuToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('open');
-            mainContent.classList.toggle('expanded');
-        });
-
-        // Close sidebar when clicking outside on mobile
-        document.addEventListener('click', (e) => {
-            if (window.innerWidth <= 768) {
-                if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
-                    sidebar.classList.remove('open');
-                    mainContent.classList.remove('expanded');
-                }
-            }
-        });
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 768) {
-                sidebar.classList.remove('open');
-                mainContent.classList.remove('expanded');
-            }
-        });
-
-        // Add keyboard navigation support
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && window.innerWidth <= 768) {
-                sidebar.classList.remove('open');
-                mainContent.classList.remove('expanded');
-            }
-        });
+            // Planning (3 sheets)
+            { name: "Project Planning", url: "https://docs.google.com/spreadsheets/d/1iHVBvv_zSid3DCJt_44sXEeyjiZiFsNoMPJuTXlNej8/edit?pli=1&gid=155511163#gid=155511163", category: "planning", description: "Project roadmaps and milestone tracking", status: "active" },
+            { name: "Strategic Planning", url: "https://docs.google.com/spreadsheets/d/1CT63YKjr9ADrDJmJ2_polAVPkoz1vgHDUMelvhDFNL4/edit?gid=1434937777#gid=1434937777", category: "planning", description: "Long-term strategic planning and goals", status: "active" },
+            { name: "Planning Dashboard", url: "https://docs.google.com/spreadsheets/d/1QUyntUG5L2S-89M-m2PsZxcLUPBL3hZwek6cjfgKqXY/edit?gid=0#gid=0", category: "planning", description: "Central planning and coordination", status: "active" }
+        ];
 
         // Initialize the app
-        document.addEventListener('DOMContentLoaded', initializeApp);
+        let currentFilter = 'all';
+        let filteredSheets = [...sheetsData];
 
-        console.log('Enhanced Dashboard initialized successfully!');
+        // Section info
+        const sectionInfo = {
+            overview: { title: 'Dashboard Overview', subtitle: 'Quick access to your most important tools' },
+            sheets: { title: 'Google Sheets', subtitle: 'Manage all your spreadsheets and data' },
+            apps: { title: 'Web Applications', subtitle: 'Access your business tools' },
+            reports: { title: 'Reports & Analytics', subtitle: 'View insights and metrics' },
+            finance: { title: 'Financial Management', subtitle: 'Handle accounting and payments' },
+            operations: { title: 'Operations', subtitle: 'Manage day-to-day operations' },
+            projects: { title: 'Project Management', subtitle: 'Track and manage projects' }
+        };
+
+        // Render table
+        function renderTable() {
+            const tbody = document.getElementById('sheetsTableBody');
+            const countEl = document.getElementById('sheetCount');
+            
+            tbody.innerHTML = '';
+            
+            filteredSheets.forEach(sheet => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <a href="${sheet.url}" class="sheet-link" target="_blank">
+                            <span class="sheet-icon">${getCategoryIcon(sheet.category)}</span>
+                            ${sheet.name}
+                        </a>
+                    </td>
+                    <td>
+                        <span class="category-badge badge-${sheet.category}">${sheet.category}</span>
+                    </td>
+                    <td>${sheet.description}</td>
+                    <td>
+                        <span class="status-dot status-${sheet.status}"></span>
+                        ${sheet.status === 'active' ? 'Active' : 'Recently Updated'}
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <a href="${sheet.url}" class="btn btn-primary" target="_blank">📄 Open</a>
+                            <button class="btn btn-secondary" onclick="copyLink('${sheet.url}')">📋 Copy</button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+            
+            countEl.textContent = `Showing ${filteredSheets.length} of ${sheetsData.length} sheets`;
+        }
+
+        // Get category icon
+        function getCategoryIcon(category) {
+            const icons = {
+                purchasing: '🛒',
+                financial: '💰',
+                operations: '⚙️',
+                analytics: '📊',
+                planning: '📋'
+            };
+            return icons[category] || '📄';
+        }
+
+        // Copy link function
+        function copyLink(url) {
+            navigator.clipboard.writeText(url).then(() => {
+                // Could add a toast notification here
+                console.log('Link copied!');
+            });
+        }
+
+        // Filter sheets
+        function filterSheets(category, searchTerm = '') {
+            filteredSheets = sheetsData.filter(sheet => {
+                const matchesCategory = category === 'all' || sheet.category === category;
+                const matchesSearch = searchTerm === '' || 
+                    sheet.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    sheet.description.toLowerCase().includes(searchTerm.toLowerCase());
+                return matchesCategory && matchesSearch;
+            });
+            renderTable();
+        }
+
+        // Navigation
+        function switchSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show target section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update nav
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelector(`[data-section="${sectionId}"]`).classList.add('active');
+            
+            // Update header
+            const info = sectionInfo[sectionId];
+            if (info) {
+                document.querySelector('.content-header h1').textContent = info.title;
+                document.querySelector('.content-header p').textContent = info.subtitle;
+            }
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const section = item.getAttribute('data-section');
+                    if (section) switchSection(section);
+                });
+            });
+
+            // Filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    currentFilter = btn.getAttribute('data-filter');
+                    const searchTerm = document.getElementById('searchInput').value;
+                    filterSheets(currentFilter, searchTerm);
+                });
+            });
+
+            // Search
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                filterSheets(currentFilter, e.target.value);
+            });
+
+            // Initial render
+            renderTable();
+        });
     </script>
 </body>
 </html>
