@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Business Dashboard</title>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -144,7 +146,29 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Table Container */
+        /* Card Layout */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h3 {
+            font-size: 1.125rem;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+
+        /* Table styles (keeping existing) */
         .table-container {
             background: white;
             border-radius: 12px;
@@ -329,28 +353,7 @@
             align-items: center;
         }
 
-        /* Card Layout for other sections */
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .card {
-            background: white;
-            border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .card h3 {
-            font-size: 1.125rem;
-            color: #1e293b;
-            margin-bottom: 1rem;
-            border-bottom: 2px solid #667eea;
-            padding-bottom: 0.5rem;
-        }
-
+        /* Link Grid */
         .link-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -365,6 +368,9 @@
             color: #1e293b;
             transition: all 0.2s ease;
             border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
         }
 
         .link-item:hover {
@@ -374,16 +380,351 @@
             color: white;
         }
 
-        .link-item h4 {
+        .link-item .icon {
+            font-size: 1.5rem;
+        }
+
+        .link-item-content h4 {
             font-size: 0.875rem;
             margin-bottom: 0.25rem;
             font-weight: 600;
         }
 
-        .link-item p {
+        .link-item-content p {
             font-size: 0.75rem;
             opacity: 0.8;
         }
+
+        /* People Section */
+        .department-section {
+            margin-bottom: 2rem;
+        }
+
+        .department-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 0;
+        }
+
+        .department-header h3 {
+            font-size: 1.125rem;
+            margin: 0;
+        }
+
+        .people-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0 0 8px 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .person-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.25rem;
+            transition: all 0.2s ease;
+        }
+
+        .person-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .person-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .person-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 1.25rem;
+        }
+
+        .person-info h4 {
+            font-size: 1rem;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+
+        .person-info .role {
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+
+        .person-details {
+            font-size: 0.875rem;
+            color: #475569;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .view-details-btn {
+            width: 100%;
+            padding: 0.5rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .view-details-btn:hover {
+            background: #5a67d8;
+        }
+
+        /* SOPs Section */
+        .sop-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            background: white;
+            padding: 0.75rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .sop-tab {
+            padding: 0.5rem 1rem;
+            background: #e2e8f0;
+            border: none;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .sop-tab:hover {
+            background: #cbd5e1;
+        }
+
+        .sop-tab.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .sop-content {
+            display: none;
+        }
+
+        .sop-content.active {
+            display: block;
+        }
+
+        .sop-document {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .sop-document h3 {
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .sop-document h4 {
+            color: #475569;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .sop-document p {
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .sop-document ol, .sop-document ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: #64748b;
+        }
+
+        .sop-document li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        /* Accounts Section Styles */
+        .accounts-container {
+            margin-bottom: 2rem;
+        }
+
+        .accounts-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        .accounts-table th {
+            background: #667eea;
+            color: white;
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.875rem;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .accounts-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.875rem;
+            vertical-align: middle;
+        }
+
+        .accounts-table tr:hover {
+            background: #f8fafc;
+        }
+
+        .entity-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: #e0e7ff;
+            color: #4338ca;
+        }
+
+        .account-type {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .account-type.checking { background: #d1fae5; color: #065f46; }
+        .account-type.savings { background: #dbeafe; color: #1e40af; }
+        .account-type.credit { background: #fee2e2; color: #991b1b; }
+        .account-type.merchant { background: #f3e8ff; color: #7c2d12; }
+
+        .balance {
+            font-weight: 600;
+            color: #059669;
+        }
+
+        .balance.negative {
+            color: #dc2626;
+        }
+
+        .account-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .account-link:hover {
+            color: #5a67d8;
+            text-decoration: underline;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-header h2 {
+            color: #1e293b;
+            font-size: 1.5rem;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #64748b;
+        }
+
+        .close-modal:hover {
+            color: #1e293b;
+        }
+
+        /* Brand Icon Styles */
+        .brand-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .brand-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .brand-icon.gmail { background: #EA4335; }
+        .brand-icon.slack { background: #4A154B; }
+        .brand-icon.whatsapp { background: #25D366; }
+        .brand-icon.chatgpt { background: #10A37F; }
+        .brand-icon.quickbooks { background: #2CA01C; }
+        .brand-icon.wise { background: #00B9FF; }
+        .brand-icon.hubstaff { background: #0066CC; }
+        .brand-icon.sheets { background: #0F9D58; }
+        .brand-icon.lookerstudio { background: #4285F4; }
 
         /* Mobile */
         @media (max-width: 768px) {
@@ -407,6 +748,10 @@
             .search-input {
                 min-width: auto;
             }
+
+            .sop-tabs {
+                flex-wrap: wrap;
+            }
         }
     </style>
 </head>
@@ -415,44 +760,40 @@
         <!-- Sidebar -->
         <nav class="sidebar" id="sidebar">
             <div class="sidebar-header">
-                <h1>📊 Dashboard</h1>
-                <p>Business Hub</p>
+                <h1>📊 Business Hub</h1>
+                <p>Central Dashboard</p>
             </div>
 
             <div class="nav-group">
                 <h3>Main</h3>
                 <a class="nav-item active" data-section="overview">
-                    <span class="icon">🏠</span>
+                    <span class="icon"><i class="fas fa-home"></i></span>
                     <span class="text">Overview</span>
                 </a>
                 <a class="nav-item" data-section="sheets">
-                    <span class="icon">📊</span>
+                    <span class="icon"><i class="fas fa-table"></i></span>
                     <span class="text">Google Sheets</span>
                     <span class="badge">43</span>
                 </a>
                 <a class="nav-item" data-section="apps">
-                    <span class="icon">🚀</span>
-                    <span class="text">Web Apps</span>
-                </a>
-                <a class="nav-item" data-section="reports">
-                    <span class="icon">📈</span>
-                    <span class="text">Reports</span>
+                    <span class="icon"><i class="fas fa-globe"></i></span>
+                    <span class="text">Web Tools</span>
                 </a>
             </div>
 
             <div class="nav-group">
-                <h3>Business</h3>
-                <a class="nav-item" data-section="finance">
-                    <span class="icon">💰</span>
-                    <span class="text">Finance</span>
+                <h3>Organization</h3>
+                <a class="nav-item" data-section="people">
+                    <span class="icon"><i class="fas fa-users"></i></span>
+                    <span class="text">People</span>
                 </a>
-                <a class="nav-item" data-section="operations">
-                    <span class="icon">⚙️</span>
-                    <span class="text">Operations</span>
+                <a class="nav-item" data-section="sops">
+                    <span class="icon"><i class="fas fa-clipboard-list"></i></span>
+                    <span class="text">SOPs</span>
                 </a>
-                <a class="nav-item" data-section="projects">
-                    <span class="icon">📋</span>
-                    <span class="text">Projects</span>
+                <a class="nav-item" data-section="accounts">
+                    <span class="icon"><i class="fas fa-building"></i></span>
+                    <span class="text">Accounts & Entities</span>
                 </a>
             </div>
         </nav>
@@ -471,41 +812,71 @@
                         <h3>🚀 Quick Access</h3>
                         <div class="link-grid">
                             <a href="https://mail.google.com/mail/u/0/#inbox" class="link-item" target="_blank">
-                                <h4>Gmail</h4>
-                                <p>Email management</p>
+                                <span class="brand-icon">
+                                    <img src="https://www.google.com/gmail/about/static-2.0/images/logo-gmail.png" alt="Gmail" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg'">
+                                </span>
+                                <div class="link-item-content">
+                                    <h4>Gmail</h4>
+                                    <p>Email management</p>
+                                </div>
                             </a>
                             <a href="https://chatgpt.com/" class="link-item" target="_blank">
-                                <h4>ChatGPT</h4>
-                                <p>AI assistant</p>
-                            </a>
-                            <a href="https://web.whatsapp.com/" class="link-item" target="_blank">
-                                <h4>WhatsApp</h4>
-                                <p>Messaging</p>
+                                <span class="brand-icon" style="background: #10A37F;">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" alt="ChatGPT" style="filter: brightness(0) invert(1);">
+                                </span>
+                                <div class="link-item-content">
+                                    <h4>ChatGPT</h4>
+                                    <p>AI assistant</p>
+                                </div>
                             </a>
                             <a href="https://app.slack.com/client/TBZ1WQHEH/D05P7P8H1TN" class="link-item" target="_blank">
-                                <h4>Slack</h4>
-                                <p>Team chat</p>
+                                <span class="brand-icon">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/slack/slack-original.svg" alt="Slack">
+                                </span>
+                                <div class="link-item-content">
+                                    <h4>Slack</h4>
+                                    <p>Team chat</p>
+                                </div>
+                            </a>
+                            <a href="https://app.hubstaff.com/organizations/571164/team_payments/past" class="link-item" target="_blank">
+                                <span class="brand-icon">
+                                    <img src="https://app.hubstaff.com/favicon.ico" alt="Hubstaff" style="width: 20px; height: 20px;">
+                                </span>
+                                <div class="link-item-content">
+                                    <h4>Hubstaff</h4>
+                                    <p>Time tracking</p>
+                                </div>
                             </a>
                         </div>
                     </div>
 
                     <div class="card">
-                        <h3>📊 Recent Sheets</h3>
+                        <h3>📊 Recent Activity</h3>
                         <div class="link-grid">
                             <a href="https://docs.google.com/spreadsheets/d/1bpJcOZ6IRjeQ-LOZq8uXP2EXNrFoZh-KUCscVxTuu0k/edit?gid=192791778#gid=192791778" class="link-item" target="_blank">
-                                <h4>AK Purchasing</h4>
-                                <p>Vendor purchasing</p>
+                                <span class="brand-icon sheets">
+                                    <img src="https://www.gstatic.com/images/branding/product/1x/sheets_2020q4_48dp.png" alt="Google Sheets" style="width: 20px; height: 20px;">
+                                </span>
+                                <div class="link-item-content">
+                                    <h4>AK Purchasing</h4>
+                                    <p>Updated today</p>
+                                </div>
                             </a>
                             <a href="https://docs.google.com/spreadsheets/d/1pKpgqcMDATrY79wTE5QELrrWL38PginDZ3DdMrfHfTg/edit?gid=861326680#gid=861326680" class="link-item" target="_blank">
-                                <h4>Financial Dashboard</h4>
-                                <p>Financial overview</p>
+                                <span class="brand-icon sheets">
+                                    <img src="https://www.gstatic.com/images/branding/product/1x/sheets_2020q4_48dp.png" alt="Google Sheets" style="width: 20px; height: 20px;">
+                                </span>
+                                <div class="link-item-content">
+                                    <h4>Financial Dashboard</h4>
+                                    <p>Active now</p>
+                                </div>
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Google Sheets Section -->
+            <!-- Google Sheets Section (keeping existing) -->
             <div class="content-section" id="sheets">
                 <div class="table-container">
                     <div class="table-header">
@@ -546,142 +917,787 @@
                 </div>
             </div>
 
-            <!-- Web Apps Section -->
+            <!-- Web Tools Section (consolidated) -->
             <div class="content-section" id="apps">
                 <div class="card-grid">
                     <div class="card">
-                        <h3>🚀 Productivity Apps</h3>
+                        <h3>💼 Communication & Collaboration</h3>
                         <div class="link-grid">
                             <a href="https://mail.google.com/mail/u/0/#inbox" class="link-item" target="_blank">
-                                <h4>Gmail</h4>
-                                <p>Email management</p>
+                                <span class="brand-icon">
+                                    <img src="icons/brands/gmail.svg" alt="Gmail" onerror="this.innerHTML='G'">
+                                </span>
+                                <div class="link-item-content">
+                                    <h4>Gmail</h4>
+                                    <p>Email management</p>
+                                </div>
                             </a>
-                            <a href="https://chatgpt.com/" class="link-item" target="_blank">
-                                <h4>ChatGPT</h4>
-                                <p>AI assistant</p>
+                            <a href="https://app.slack.com/client/TBZ1WQHEH/D05P7P8H1TN" class="link-item" target="_blank">
+                                <span class="brand-icon">
+                                    <img src="icons/brands/slack.svg" alt="Slack" onerror="this.innerHTML='S'">
+                                </span>
+                                <div class="link-item-content">
+                                    <h4>Slack</h4>
+                                    <p>Team communication</p>
+                                </div>
                             </a>
                             <a href="https://web.whatsapp.com/" class="link-item" target="_blank">
-                                <h4>WhatsApp</h4>
-                                <p>Messaging</p>
+                                <span class="brand-icon">
+                                    <img src="icons/brands/whatsapp.svg" alt="WhatsApp" onerror="this.innerHTML='W'">
+                                </span>
+                                <div class="link-item-content">
+                                    <h4>WhatsApp</h4>
+                                    <p>Messaging</p>
+                                </div>
                             </a>
-                            <a href="https://app.hubstaff.com/organizations/571164/team_payments/past" class="link-item" target="_blank">
-                                <h4>Hubstaff</h4>
-                                <p>Time tracking</p>
+                            <a href="https://chatgpt.com/" class="link-item" target="_blank">
+                                <span class="brand-icon">
+                                    <img src="icons/brands/chatgpt.svg" alt="ChatGPT" onerror="this.innerHTML='AI'">
+                                </span>
+                                <div class="link-item-content">
+                                    <h4>ChatGPT</h4>
+                                    <p>AI assistant</p>
+                                </div>
                             </a>
                         </div>
                     </div>
 
                     <div class="card">
-                        <h3>💼 Business Tools</h3>
-                        <div class="link-grid">
-                            <a href="https://app.slack.com/client/TBZ1WQHEH/D05P7P8H1TN" class="link-item" target="_blank">
-                                <h4>Slack</h4>
-                                <p>Team communication</p>
-                            </a>
-                            <a href="https://my.anchor.sh/home" class="link-item" target="_blank">
-                                <h4>Anchor</h4>
-                                <p>Project management</p>
-                            </a>
-                            <a href="https://keeper.app/client-list" class="link-item" target="_blank">
-                                <h4>Keeper</h4>
-                                <p>Client management</p>
-                            </a>
-                            <a href="https://web.instantbookkeeper.com/#" class="link-item" target="_blank">
-                                <h4>Instant Bookkeeper</h4>
-                                <p>Bookkeeping</p>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Reports Section -->
-            <div class="content-section" id="reports">
-                <div class="card-grid">
-                    <div class="card">
-                        <h3>📈 Analytics & Reports</h3>
-                        <div class="link-grid">
-                            <a href="https://app.fathomhq.com/company/HGgGyE/analysis/financials?rangeId=398000133&comparison=priorPeriod&detailLevel=summary&type=profitAndLoss&layout=normal" class="link-item" target="_blank">
-                                <h4>Fathom Analytics</h4>
-                                <p>Financial analytics</p>
-                            </a>
-                            <a href="https://lookerstudio.google.com/reporting/7d4fac36-88ab-4864-a027-4d767d98d9c8/page/p_2hk2yddn1c" class="link-item" target="_blank">
-                                <h4>Sales Dashboard</h4>
-                                <p>Sales metrics</p>
-                            </a>
-                            <a href="https://lookerstudio.google.com/reporting/d6d0fec9-482d-47b3-9c56-111d8d8ea357/page/p_paqj9iy7nd" class="link-item" target="_blank">
-                                <h4>ROI Analysis</h4>
-                                <p>Investment tracking</p>
-                            </a>
-                            <a href="https://lookerstudio.google.com/u/0/reporting/e1aaf9ad-c3d1-44c1-a994-00c97ab5a0ce/page/p_eed8ll4krd" class="link-item" target="_blank">
-                                <h4>Inventory Analysis</h4>
-                                <p>Inventory trends</p>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Finance Section -->
-            <div class="content-section" id="finance">
-                <div class="card-grid">
-                    <div class="card">
-                        <h3>💰 Financial Tools</h3>
+                        <h3>💰 Finance & Accounting</h3>
                         <div class="link-grid">
                             <a href="https://accounts.intuit.com/app/sign-in?app_group=QBO&asset_alias=Intuit.accounting.core.qbowebapp&app_environment=prod" class="link-item" target="_blank">
-                                <h4>QuickBooks</h4>
-                                <p>Accounting software</p>
+                                <span class="brand-icon">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Intuit_QuickBooks_logo.svg" alt="QuickBooks">
+                                </span>
+                                <div class="link-item-content">
+                                    <h4>QuickBooks</h4>
+                                    <p>Accounting software</p>
+                                </div>
                             </a>
                             <a href="https://wise.com/login?autoLogout=true" class="link-item" target="_blank">
-                                <h4>Wise</h4>
-                                <p>International transfers</p>
+                                <span class="brand-icon">
+                                    <img src="https://wise.com/favicon.ico" alt="Wise" style="width: 20px; height: 20px;">
+                                </span>
+                                <div class="link-item-content">
+                                    <h4>Wise</h4>
+                                    <p>International transfers</p>
+                                </div>
                             </a>
                             <a href="https://app.intl.pingpongx.com/dashboard/history" class="link-item" target="_blank">
-                                <h4>PingPong</h4>
-                                <p>Payment processing</p>
+                                <span class="brand-icon" style="background: #FF6B6B;">PP</span>
+                                <div class="link-item-content">
+                                    <h4>PingPong</h4>
+                                    <p>Payment processing</p>
+                                </div>
                             </a>
                             <a href="https://importer.synder.com/login/auth" class="link-item" target="_blank">
-                                <h4>Synder</h4>
-                                <p>Financial sync</p>
+                                <span class="brand-icon" style="background: #5C6BC0;">
+                                    <img src="https://synder.com/wp-content/uploads/2021/04/Synder-logo-white.svg" alt="Synder" style="filter: brightness(0) invert(1); padding: 4px;">
+                                </span>
+                                <div class="link-item-content">
+                                    <h4>Synder</h4>
+                                    <p>Financial sync</p>
+                                </div>
+                            </a>
+                            <a href="https://web.instantbookkeeper.com/#" class="link-item" target="_blank">
+                                <span class="brand-icon" style="background: #FF9800;"><i class="fas fa-book"></i></span>
+                                <div class="link-item-content">
+                                    <h4>Instant Bookkeeper</h4>
+                                    <p>Bookkeeping</p>
+                                </div>
                             </a>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- Operations Section -->
-            <div class="content-section" id="operations">
-                <div class="card-grid">
                     <div class="card">
-                        <h3>⚙️ Operations</h3>
+                        <h3>📈 Analytics & Operations</h3>
                         <div class="link-grid">
+                            <a href="https://app.fathomhq.com/company/HGgGyE/analysis/financials?rangeId=398000133&comparison=priorPeriod&detailLevel=summary&type=profitAndLoss&layout=normal" class="link-item" target="_blank">
+                                <span class="brand-icon" style="background: #5E72E4;">
+                                    <i class="fas fa-chart-line" style="color: white;"></i>
+                                </span>
+                                <div class="link-item-content">
+                                    <h4>Fathom Analytics</h4>
+                                    <p>Financial analytics</p>
+                                </div>
+                            </a>
+                            <a href="https://lookerstudio.google.com/reporting/7d4fac36-88ab-4864-a027-4d767d98d9c8/page/p_2hk2yddn1c" class="link-item" target="_blank">
+                                <span class="brand-icon">
+                                    <img src="https://www.gstatic.com/analytics-suite/header/suite/v2/ic_data_studio.svg" alt="Looker Studio">
+                                </span>
+                                <div class="link-item-content">
+                                    <h4>Sales Dashboard</h4>
+                                    <p>Sales metrics</p>
+                                </div>
+                            </a>
                             <a href="https://demo.inventoryahead.com/products?curTab=kits" class="link-item" target="_blank">
-                                <h4>Inventory Ahead</h4>
-                                <p>Inventory management</p>
+                                <span class="brand-icon" style="background: #4CAF50;">
+                                    <i class="fas fa-boxes" style="color: white;"></i>
+                                </span>
+                                <div class="link-item-content">
+                                    <h4>Inventory Ahead</h4>
+                                    <p>Inventory management</p>
+                                </div>
                             </a>
-                            <a href="https://docs.google.com/document/d/1PUHCt6VXUIkhOhk5NJmzmXW6YZBfupjRB49EOE5y79w/edit?tab=t.0#heading=h.5ica75mlewi5" class="link-item" target="_blank">
-                                <h4>Process Docs</h4>
-                                <p>SOPs and procedures</p>
+                            <a href="https://app.hubstaff.com/organizations/571164/team_payments/past" class="link-item" target="_blank">
+                                <span class="brand-icon">
+                                    <img src="https://app.hubstaff.com/favicon.ico" alt="Hubstaff" style="width: 20px; height: 20px;">
+                                </span>
+                                <div class="link-item-content">
+                                    <h4>Hubstaff</h4>
+                                    <p>Time tracking</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>🔧 Other Tools</h3>
+                        <div class="link-grid">
+                            <a href="https://my.anchor.sh/home" class="link-item" target="_blank">
+                                <span class="brand-icon" style="background: #1E88E5;">
+                                    <i class="fas fa-anchor" style="color: white;"></i>
+                                </span>
+                                <div class="link-item-content">
+                                    <h4>Anchor</h4>
+                                    <p>Project management</p>
+                                </div>
+                            </a>
+                            <a href="https://keeper.app/client-list" class="link-item" target="_blank">
+                                <span class="brand-icon" style="background: #FFA000;">
+                                    <i class="fas fa-shield-alt" style="color: white;"></i>
+                                </span>
+                                <div class="link-item-content">
+                                    <h4>Keeper</h4>
+                                    <p>Client management</p>
+                                </div>
+                            </a>
+                            <a href="https://lookerstudio.google.com/reporting/d6d0fec9-482d-47b3-9c56-111d8d8ea357/page/p_paqj9iy7nd" class="link-item" target="_blank">
+                                <span class="brand-icon">
+                                    <img src="https://www.gstatic.com/analytics-suite/header/suite/v2/ic_data_studio.svg" alt="Looker Studio">
+                                </span>
+                                <div class="link-item-content">
+                                    <h4>ROI Analysis</h4>
+                                    <p>Investment tracking</p>
+                                </div>
+                            </a>
+                            <a href="https://lookerstudio.google.com/u/0/reporting/e1aaf9ad-c3d1-44c1-a994-00c97ab5a0ce/page/p_eed8ll4krd" class="link-item" target="_blank">
+                                <span class="brand-icon">
+                                    <img src="https://www.gstatic.com/analytics-suite/header/suite/v2/ic_data_studio.svg" alt="Looker Studio">
+                                </span>
+                                <div class="link-item-content">
+                                    <h4>Inventory Analysis</h4>
+                                    <p>Inventory trends</p>
+                                </div>
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Projects Section -->
-            <div class="content-section" id="projects">
-                <div class="card-grid">
-                    <div class="card">
-                        <h3>📋 Project Management</h3>
-                        <div class="link-grid">
-                            <a href="https://trello.com" class="link-item" target="_blank">
-                                <h4>Trello</h4>
-                                <p>Project boards</p>
-                            </a>
-                            <a href="https://notion.so" class="link-item" target="_blank">
-                                <h4>Notion</h4>
-                                <p>Documentation</p>
-                            </a>
+            <!-- People Section -->
+            <div class="content-section" id="people">
+                <!-- Leadership Department -->
+                <div class="department-section">
+                    <div class="department-header">
+                        <h3>👔 Leadership Team</h3>
+                    </div>
+                    <div class="people-grid">
+                        <div class="person-card">
+                            <div class="person-header">
+                                <div class="person-avatar">JD</div>
+                                <div class="person-info">
+                                    <h4>John Doe</h4>
+                                    <p class="role">CEO & Founder</p>
+                                </div>
+                            </div>
+                            <div class="person-details">
+                                Strategic vision, company growth, investor relations, and overall business strategy.
+                            </div>
+                            <button class="view-details-btn" onclick="showPersonDetails('john-doe')">View Details</button>
+                        </div>
+                        <div class="person-card">
+                            <div class="person-header">
+                                <div class="person-avatar">SM</div>
+                                <div class="person-info">
+                                    <h4>Sarah Miller</h4>
+                                    <p class="role">COO</p>
+                                </div>
+                            </div>
+                            <div class="person-details">
+                                Operations management, process optimization, team coordination, and efficiency improvements.
+                            </div>
+                            <button class="view-details-btn" onclick="showPersonDetails('sarah-miller')">View Details</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sales Department -->
+                <div class="department-section">
+                    <div class="department-header">
+                        <h3>💼 Sales & Marketing</h3>
+                    </div>
+                    <div class="people-grid">
+                        <div class="person-card">
+                            <div class="person-header">
+                                <div class="person-avatar">AK</div>
+                                <div class="person-info">
+                                    <h4>Alex Kumar</h4>
+                                    <p class="role">Sales Director</p>
+                                </div>
+                            </div>
+                            <div class="person-details">
+                                Lead generation, client relationships, sales strategy, and revenue growth initiatives.
+                            </div>
+                            <button class="view-details-btn" onclick="showPersonDetails('alex-kumar')">View Details</button>
+                        </div>
+                        <div class="person-card">
+                            <div class="person-header">
+                                <div class="person-avatar">EW</div>
+                                <div class="person-info">
+                                    <h4>Emily Watson</h4>
+                                    <p class="role">Marketing Manager</p>
+                                </div>
+                            </div>
+                            <div class="person-details">
+                                Digital marketing, content strategy, brand management, and campaign execution.
+                            </div>
+                            <button class="view-details-btn" onclick="showPersonDetails('emily-watson')">View Details</button>
+                        </div>
+                        <div class="person-card">
+                            <div class="person-header">
+                                <div class="person-avatar">MJ</div>
+                                <div class="person-info">
+                                    <h4>Michael Johnson</h4>
+                                    <p class="role">Sales Representative</p>
+                                </div>
+                            </div>
+                            <div class="person-details">
+                                Customer outreach, product demonstrations, closing deals, and account management.
+                            </div>
+                            <button class="view-details-btn" onclick="showPersonDetails('michael-johnson')">View Details</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Operations Department -->
+                <div class="department-section">
+                    <div class="department-header">
+                        <h3>⚙️ Operations</h3>
+                    </div>
+                    <div class="people-grid">
+                        <div class="person-card">
+                            <div class="person-header">
+                                <div class="person-avatar">DL</div>
+                                <div class="person-info">
+                                    <h4>David Lee</h4>
+                                    <p class="role">Operations Manager</p>
+                                </div>
+                            </div>
+                            <div class="person-details">
+                                Supply chain management, inventory control, vendor relations, and logistics coordination.
+                            </div>
+                            <button class="view-details-btn" onclick="showPersonDetails('david-lee')">View Details</button>
+                        </div>
+                        <div class="person-card">
+                            <div class="person-header">
+                                <div class="person-avatar">RC</div>
+                                <div class="person-info">
+                                    <h4>Rachel Chen</h4>
+                                    <p class="role">Purchasing Coordinator</p>
+                                </div>
+                            </div>
+                            <div class="person-details">
+                                Vendor sourcing, purchase orders, cost negotiations, and inventory planning.
+                            </div>
+                            <button class="view-details-btn" onclick="showPersonDetails('rachel-chen')">View Details</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Finance Department -->
+                <div class="department-section">
+                    <div class="department-header">
+                        <h3>💰 Finance</h3>
+                    </div>
+                    <div class="people-grid">
+                        <div class="person-card">
+                            <div class="person-header">
+                                <div class="person-avatar">JT</div>
+                                <div class="person-info">
+                                    <h4>James Taylor</h4>
+                                    <p class="role">CFO</p>
+                                </div>
+                            </div>
+                            <div class="person-details">
+                                Financial planning, budgeting, reporting, compliance, and strategic financial decisions.
+                            </div>
+                            <button class="view-details-btn" onclick="showPersonDetails('james-taylor')">View Details</button>
+                        </div>
+                        <div class="person-card">
+                            <div class="person-header">
+                                <div class="person-avatar">LP</div>
+                                <div class="person-info">
+                                    <h4>Lisa Park</h4>
+                                    <p class="role">Senior Accountant</p>
+                                </div>
+                            </div>
+                            <div class="person-details">
+                                Bookkeeping, financial statements, tax preparation, and accounts reconciliation.
+                            </div>
+                            <button class="view-details-btn" onclick="showPersonDetails('lisa-park')">View Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SOPs Section -->
+            <div class="content-section" id="sops">
+                <div class="sop-tabs">
+                    <button class="sop-tab active" data-sop="purchasing">Purchasing</button>
+                    <button class="sop-tab" data-sop="financial">Financial</button>
+                    <button class="sop-tab" data-sop="operations">Operations</button>
+                    <button class="sop-tab" data-sop="hr">HR & Onboarding</button>
+                    <button class="sop-tab" data-sop="sales">Sales</button>
+                </div>
+
+                <!-- Purchasing SOPs -->
+                <div class="sop-content active" id="sop-purchasing">
+                    <div class="sop-document">
+                        <h3>📋 Vendor Purchasing Process</h3>
+                        <p>This SOP outlines the standard procedure for purchasing from approved vendors.</p>
+                        
+                        <h4>1. Purchase Request</h4>
+                        <ol>
+                            <li>Department head submits purchase request via Google Form</li>
+                            <li>Include item description, quantity, estimated cost, and business justification</li>
+                            <li>Attach any relevant quotes or specifications</li>
+                        </ol>
+
+                        <h4>2. Approval Process</h4>
+                        <ol>
+                            <li>Purchases under $500: Department manager approval</li>
+                            <li>Purchases $500-$5,000: Operations manager approval</li>
+                            <li>Purchases over $5,000: CFO approval required</li>
+                        </ol>
+
+                        <h4>3. Vendor Selection</h4>
+                        <ol>
+                            <li>Check approved vendor list in AK Purchasing sheet</li>
+                            <li>For new vendors, complete vendor evaluation form</li>
+                            <li>Obtain minimum 3 quotes for purchases over $1,000</li>
+                        </ol>
+
+                        <h4>4. Purchase Order Creation</h4>
+                        <ol>
+                            <li>Create PO in QuickBooks with approved details</li>
+                            <li>Send PO to vendor via email</li>
+                            <li>Update purchasing tracker with PO number and expected delivery date</li>
+                        </ol>
+                    </div>
+
+                    <div class="sop-document">
+                        <h3>📋 Inventory Receiving Process</h3>
+                        <p>Standard procedure for receiving and processing inventory deliveries.</p>
+                        
+                        <h4>1. Delivery Receipt</h4>
+                        <ol>
+                            <li>Verify delivery against purchase order</li>
+                            <li>Check for damaged or missing items</li>
+                            <li>Sign delivery receipt and note any discrepancies</li>
+                        </ol>
+
+                        <h4>2. Quality Check</h4>
+                        <ol>
+                            <li>Inspect items for quality standards</li>
+                            <li>Take photos of any defects</li>
+                            <li>Complete quality check form</li>
+                        </ol>
+
+                        <h4>3. System Update</h4>
+                        <ol>
+                            <li>Update Inventory Ahead system with received quantities</li>
+                            <li>Update purchasing tracker status to "Received"</li>
+                            <li>File all documentation in appropriate folder</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Financial SOPs -->
+                <div class="sop-content" id="sop-financial">
+                    <div class="sop-document">
+                        <h3>📋 Invoice Processing</h3>
+                        <p>Standard procedure for processing vendor invoices and payments.</p>
+                        
+                        <h4>1. Invoice Receipt</h4>
+                        <ol>
+                            <li>All invoices should be sent to accounts@company.com</li>
+                            <li>Verify invoice details against PO and delivery receipt</li>
+                            <li>Check for proper approval signatures</li>
+                        </ol>
+
+                        <h4>2. Invoice Entry</h4>
+                        <ol>
+                            <li>Enter invoice in QuickBooks within 48 hours</li>
+                            <li>Attach digital copy to QuickBooks entry</li>
+                            <li>Code to appropriate expense account</li>
+                        </ol>
+
+                        <h4>3. Payment Processing</h4>
+                        <ol>
+                            <li>Review payment terms and due dates</li>
+                            <li>Schedule payments for optimal cash flow</li>
+                            <li>Process payments via appropriate method (ACH, wire, check)</li>
+                        </ol>
+                    </div>
+
+                    <div class="sop-document">
+                        <h3>📋 Month-End Close Process</h3>
+                        <p>Monthly financial closing procedures to ensure accurate reporting.</p>
+                        
+                        <h4>1. Account Reconciliation</h4>
+                        <ol>
+                            <li>Reconcile all bank accounts by day 3</li>
+                            <li>Reconcile credit card statements</li>
+                            <li>Review and clear suspense accounts</li>
+                        </ol>
+
+                        <h4>2. Journal Entries</h4>
+                        <ol>
+                            <li>Post standard monthly accruals</li>
+                            <li>Record depreciation entries</li>
+                            <li>Adjust prepaid expenses</li>
+                        </ol>
+
+                        <h4>3. Financial Reports</h4>
+                        <ol>
+                            <li>Generate P&L, Balance Sheet, and Cash Flow statements</li>
+                            <li>Prepare variance analysis</li>
+                            <li>Submit reports to management by day 5</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Operations SOPs -->
+                <div class="sop-content" id="sop-operations">
+                    <div class="sop-document">
+                        <h3>📋 Daily Operations Checklist</h3>
+                        <p>Daily tasks to ensure smooth business operations.</p>
+                        
+                        <h4>Morning Tasks (9:00 AM)</h4>
+                        <ul>
+                            <li>Check overnight emails and urgent messages</li>
+                            <li>Review daily sales report</li>
+                            <li>Check inventory levels for critical items</li>
+                            <li>Team stand-up meeting (9:30 AM)</li>
+                        </ul>
+
+                        <h4>Midday Tasks (12:00 PM)</h4>
+                        <ul>
+                            <li>Process morning orders</li>
+                            <li>Update project status boards</li>
+                            <li>Review and respond to customer inquiries</li>
+                        </ul>
+
+                        <h4>End of Day Tasks (5:00 PM)</h4>
+                        <ul>
+                            <li>Final order processing cutoff</li>
+                            <li>Update daily metrics dashboard</li>
+                            <li>Prepare next day priorities</li>
+                            <li>Lock and secure facilities</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- HR SOPs -->
+                <div class="sop-content" id="sop-hr">
+                    <div class="sop-document">
+                        <h3>📋 New Employee Onboarding</h3>
+                        <p>Comprehensive onboarding process for new team members.</p>
+                        
+                        <h4>Pre-Arrival (Before Day 1)</h4>
+                        <ol>
+                            <li>Send welcome email with first day instructions</li>
+                            <li>Prepare workspace and equipment</li>
+                            <li>Create accounts for all necessary systems</li>
+                            <li>Schedule orientation meetings</li>
+                        </ol>
+
+                        <h4>Day 1</h4>
+                        <ol>
+                            <li>Office tour and introductions</li>
+                            <li>IT setup and system access</li>
+                            <li>Review employee handbook</li>
+                            <li>Complete required paperwork</li>
+                        </ol>
+
+                        <h4>First Week</h4>
+                        <ol>
+                            <li>Department-specific training</li>
+                            <li>Shadow team members</li>
+                            <li>Review job responsibilities</li>
+                            <li>Set 30-60-90 day goals</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <!-- Sales SOPs -->
+                <div class="sop-content" id="sop-sales">
+                    <div class="sop-document">
+                        <h3>📋 Sales Process Workflow</h3>
+                        <p>Standard sales process from lead generation to closing.</p>
+                        
+                        <h4>1. Lead Generation</h4>
+                        <ol>
+                            <li>Identify potential customers through various channels</li>
+                            <li>Enter leads into CRM system</li>
+                            <li>Assign lead score based on qualification criteria</li>
+                        </ol>
+
+                        <h4>2. Initial Contact</h4>
+                        <ol>
+                            <li>Make first contact within 24 hours</li>
+                            <li>Send introductory email with company information</li>
+                            <li>Schedule discovery call</li>
+                        </ol>
+
+                        <h4>3. Proposal & Negotiation</h4>
+                        <ol>
+                            <li>Prepare customized proposal</li>
+                            <li>Present solution to client</li>
+                            <li>Handle objections and negotiate terms</li>
+                            <li>Send formal quote via DocuSign</li>
+                        </ol>
+
+                        <h4>4. Closing & Handoff</h4>
+                        <ol>
+                            <li>Obtain signed contract</li>
+                            <li>Process initial payment</li>
+                            <li>Create customer account in systems</li>
+                            <li>Hand off to customer success team</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accounts & Entities Section -->
+            <div class="content-section" id="accounts">
+                <!-- Entities Table -->
+                <div class="accounts-container">
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h2>🏢 Business Entities</h2>
+                        </div>
+                        <div class="table-wrapper">
+                            <table class="accounts-table">
+                                <thead>
+                                    <tr>
+                                        <th>Entity Name</th>
+                                        <th>Type</th>
+                                        <th>Tax ID</th>
+                                        <th>State</th>
+                                        <th>Status</th>
+                                        <th>Formation Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Acme Corporation LLC</strong></td>
+                                        <td><span class="entity-badge">LLC</span></td>
+                                        <td>XX-XXXXXXX</td>
+                                        <td>Delaware</td>
+                                        <td><span class="status-dot status-active"></span>Active</td>
+                                        <td>Jan 15, 2019</td>
+                                        <td>
+                                            <button class="btn btn-secondary" onclick="viewEntityDetails('acme-corp')">View Details</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Acme Holdings Inc</strong></td>
+                                        <td><span class="entity-badge">C-Corp</span></td>
+                                        <td>XX-XXXXXXX</td>
+                                        <td>Delaware</td>
+                                        <td><span class="status-dot status-active"></span>Active</td>
+                                        <td>Mar 22, 2020</td>
+                                        <td>
+                                            <button class="btn btn-secondary" onclick="viewEntityDetails('acme-holdings')">View Details</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Acme International Ltd</strong></td>
+                                        <td><span class="entity-badge">Ltd</span></td>
+                                        <td>XX-XXXXXXX</td>
+                                        <td>UK</td>
+                                        <td><span class="status-dot status-active"></span>Active</td>
+                                        <td>Jun 10, 2021</td>
+                                        <td>
+                                            <button class="btn btn-secondary" onclick="viewEntityDetails('acme-intl')">View Details</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Acme Ventures LP</strong></td>
+                                        <td><span class="entity-badge">LP</span></td>
+                                        <td>XX-XXXXXXX</td>
+                                        <td>California</td>
+                                        <td><span class="status-dot status-updated"></span>Pending</td>
+                                        <td>Sep 5, 2022</td>
+                                        <td>
+                                            <button class="btn btn-secondary" onclick="viewEntityDetails('acme-ventures')">View Details</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Accounts Table -->
+                <div class="accounts-container">
+                    <div class="table-container">
+                        <div class="table-header">
+                            <h2>💳 Bank & Financial Accounts</h2>
+                        </div>
+                        <div class="table-wrapper">
+                            <table class="accounts-table">
+                                <thead>
+                                    <tr>
+                                        <th>Account Name</th>
+                                        <th>Bank/Institution</th>
+                                        <th>Account Type</th>
+                                        <th>Account Number</th>
+                                        <th>Entity</th>
+                                        <th>Balance</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Primary Operating</strong></td>
+                                        <td>
+                                            <a href="https://www.chase.com" target="_blank" class="account-link">
+                                                Chase Bank
+                                            </a>
+                                        </td>
+                                        <td><span class="account-type checking">Checking</span></td>
+                                        <td>****1234</td>
+                                        <td>Acme Corporation LLC</td>
+                                        <td class="balance">$45,678.90</td>
+                                        <td>
+                                            <button class="btn btn-primary" onclick="window.open('https://www.chase.com', '_blank')">Access</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Payroll Account</strong></td>
+                                        <td>
+                                            <a href="https://www.chase.com" target="_blank" class="account-link">
+                                                Chase Bank
+                                            </a>
+                                        </td>
+                                        <td><span class="account-type checking">Checking</span></td>
+                                        <td>****5678</td>
+                                        <td>Acme Corporation LLC</td>
+                                        <td class="balance">$23,456.78</td>
+                                        <td>
+                                            <button class="btn btn-primary" onclick="window.open('https://www.chase.com', '_blank')">Access</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Business Savings</strong></td>
+                                        <td>
+                                            <a href="https://www.bankofamerica.com" target="_blank" class="account-link">
+                                                Bank of America
+                                            </a>
+                                        </td>
+                                        <td><span class="account-type savings">Savings</span></td>
+                                        <td>****9012</td>
+                                        <td>Acme Holdings Inc</td>
+                                        <td class="balance">$125,000.00</td>
+                                        <td>
+                                            <button class="btn btn-primary" onclick="window.open('https://www.bankofamerica.com', '_blank')">Access</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Business Credit Card</strong></td>
+                                        <td>
+                                            <a href="https://www.americanexpress.com" target="_blank" class="account-link">
+                                                American Express
+                                            </a>
+                                        </td>
+                                        <td><span class="account-type credit">Credit Card</span></td>
+                                        <td>****3456</td>
+                                        <td>Acme Corporation LLC</td>
+                                        <td class="balance negative">-$12,345.67</td>
+                                        <td>
+                                            <button class="btn btn-primary" onclick="window.open('https://www.americanexpress.com', '_blank')">Access</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Amazon Seller</strong></td>
+                                        <td>
+                                            <a href="https://sellercentral.amazon.com" target="_blank" class="account-link">
+                                                Amazon
+                                            </a>
+                                        </td>
+                                        <td><span class="account-type merchant">Merchant</span></td>
+                                        <td>****7890</td>
+                                        <td>Acme Corporation LLC</td>
+                                        <td class="balance">$34,567.89</td>
+                                        <td>
+                                            <button class="btn btn-primary" onclick="window.open('https://sellercentral.amazon.com', '_blank')">Access</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>PayPal Business</strong></td>
+                                        <td>
+                                            <a href="https://www.paypal.com" target="_blank" class="account-link">
+                                                PayPal
+                                            </a>
+                                        </td>
+                                        <td><span class="account-type merchant">Merchant</span></td>
+                                        <td>business@acme.com</td>
+                                        <td>Acme Corporation LLC</td>
+                                        <td class="balance">$8,901.23</td>
+                                        <td>
+                                            <button class="btn btn-primary" onclick="window.open('https://www.paypal.com', '_blank')">Access</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Wise Multi-Currency</strong></td>
+                                        <td>
+                                            <a href="https://wise.com" target="_blank" class="account-link">
+                                                Wise
+                                            </a>
+                                        </td>
+                                        <td><span class="account-type checking">Multi-Currency</span></td>
+                                        <td>****4567</td>
+                                        <td>Acme International Ltd</td>
+                                        <td class="balance">€15,234.56</td>
+                                        <td>
+                                            <button class="btn btn-primary" onclick="window.open('https://wise.com', '_blank')">Access</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Stripe Account</strong></td>
+                                        <td>
+                                            <a href="https://dashboard.stripe.com" target="_blank" class="account-link">
+                                                Stripe
+                                            </a>
+                                        </td>
+                                        <td><span class="account-type merchant">Payment Processor</span></td>
+                                        <td>acct_****XYZ</td>
+                                        <td>Acme Corporation LLC</td>
+                                        <td class="balance">$5,678.90</td>
+                                        <td>
+                                            <button class="btn btn-primary" onclick="window.open('https://dashboard.stripe.com', '_blank')">Access</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="table-footer">
+                            <span>Total Balance (USD): <strong style="color: #059669;">$280,725.90</strong></span>
+                            <span>Last updated: Today at 3:45 PM</span>
                         </div>
                     </div>
                 </div>
@@ -689,8 +1705,21 @@
         </main>
     </div>
 
+    <!-- Person Details Modal -->
+    <div class="modal" id="personModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalPersonName">Person Details</h2>
+                <button class="close-modal" onclick="closeModal()">×</button>
+            </div>
+            <div id="modalPersonContent">
+                <!-- Content will be dynamically inserted -->
+            </div>
+        </div>
+    </div>
+
     <script>
-        // All 43 Google Sheets data
+        // All 43 Google Sheets data (keeping existing)
         const sheetsData = [
             // Purchasing (7 sheets)
             { name: "AK Purchasing", url: "https://docs.google.com/spreadsheets/d/1bpJcOZ6IRjeQ-LOZq8uXP2EXNrFoZh-KUCscVxTuu0k/edit?gid=192791778#gid=192791778", category: "purchasing", description: "AK vendor purchasing and procurement tracking", status: "active" },
@@ -746,6 +1775,154 @@
             { name: "Planning Dashboard", url: "https://docs.google.com/spreadsheets/d/1QUyntUG5L2S-89M-m2PsZxcLUPBL3hZwek6cjfgKqXY/edit?gid=0#gid=0", category: "planning", description: "Central planning and coordination", status: "active" }
         ];
 
+        // Person details data
+        const personDetails = {
+            'john-doe': {
+                name: 'John Doe',
+                role: 'CEO & Founder',
+                department: 'Leadership',
+                email: 'john.doe@company.com',
+                phone: '+1 (555) 123-4567',
+                startDate: 'January 2019',
+                responsibilities: [
+                    'Setting company vision and strategic direction',
+                    'Building and maintaining investor relationships',
+                    'Leading executive team and board meetings',
+                    'Overseeing major business decisions',
+                    'Representing company at industry events'
+                ],
+                skills: ['Strategic Planning', 'Leadership', 'Financial Management', 'Business Development', 'Public Speaking']
+            },
+            'sarah-miller': {
+                name: 'Sarah Miller',
+                role: 'COO',
+                department: 'Leadership',
+                email: 'sarah.miller@company.com',
+                phone: '+1 (555) 234-5678',
+                startDate: 'March 2020',
+                responsibilities: [
+                    'Managing day-to-day operations',
+                    'Implementing operational strategies',
+                    'Optimizing business processes',
+                    'Leading cross-functional teams',
+                    'Ensuring operational efficiency'
+                ],
+                skills: ['Operations Management', 'Process Optimization', 'Team Leadership', 'Project Management', 'Data Analysis']
+            },
+            'alex-kumar': {
+                name: 'Alex Kumar',
+                role: 'Sales Director',
+                department: 'Sales & Marketing',
+                email: 'alex.kumar@company.com',
+                phone: '+1 (555) 345-6789',
+                startDate: 'June 2021',
+                responsibilities: [
+                    'Developing sales strategies and targets',
+                    'Managing sales team performance',
+                    'Building key customer relationships',
+                    'Analyzing market trends',
+                    'Collaborating with marketing on campaigns'
+                ],
+                skills: ['Sales Strategy', 'Customer Relations', 'Negotiation', 'Team Management', 'CRM Systems']
+            },
+            'emily-watson': {
+                name: 'Emily Watson',
+                role: 'Marketing Manager',
+                department: 'Sales & Marketing',
+                email: 'emily.watson@company.com',
+                phone: '+1 (555) 456-7890',
+                startDate: 'September 2021',
+                responsibilities: [
+                    'Creating and executing marketing strategies',
+                    'Managing digital marketing campaigns',
+                    'Overseeing content creation',
+                    'Analyzing marketing metrics',
+                    'Managing marketing budget'
+                ],
+                skills: ['Digital Marketing', 'Content Strategy', 'Social Media', 'Analytics', 'Brand Management']
+            },
+            'michael-johnson': {
+                name: 'Michael Johnson',
+                role: 'Sales Representative',
+                department: 'Sales & Marketing',
+                email: 'michael.johnson@company.com',
+                phone: '+1 (555) 567-8901',
+                startDate: 'January 2022',
+                responsibilities: [
+                    'Generating new leads and opportunities',
+                    'Conducting product demonstrations',
+                    'Managing client accounts',
+                    'Meeting sales quotas',
+                    'Providing customer support'
+                ],
+                skills: ['Sales', 'Communication', 'Product Knowledge', 'Customer Service', 'Time Management']
+            },
+            'david-lee': {
+                name: 'David Lee',
+                role: 'Operations Manager',
+                department: 'Operations',
+                email: 'david.lee@company.com',
+                phone: '+1 (555) 678-9012',
+                startDate: 'April 2020',
+                responsibilities: [
+                    'Managing supply chain operations',
+                    'Coordinating with vendors and suppliers',
+                    'Optimizing inventory levels',
+                    'Ensuring quality standards',
+                    'Managing operations team'
+                ],
+                skills: ['Supply Chain Management', 'Inventory Control', 'Quality Assurance', 'Vendor Relations', 'Logistics']
+            },
+            'rachel-chen': {
+                name: 'Rachel Chen',
+                role: 'Purchasing Coordinator',
+                department: 'Operations',
+                email: 'rachel.chen@company.com',
+                phone: '+1 (555) 789-0123',
+                startDate: 'July 2021',
+                responsibilities: [
+                    'Managing purchase orders',
+                    'Negotiating with suppliers',
+                    'Tracking inventory needs',
+                    'Maintaining vendor relationships',
+                    'Cost optimization'
+                ],
+                skills: ['Purchasing', 'Negotiation', 'Vendor Management', 'Excel', 'Inventory Planning']
+            },
+            'james-taylor': {
+                name: 'James Taylor',
+                role: 'CFO',
+                department: 'Finance',
+                email: 'james.taylor@company.com',
+                phone: '+1 (555) 890-1234',
+                startDate: 'February 2020',
+                responsibilities: [
+                    'Financial planning and analysis',
+                    'Managing company finances',
+                    'Overseeing accounting operations',
+                    'Financial reporting to stakeholders',
+                    'Risk management and compliance'
+                ],
+                skills: ['Financial Analysis', 'Accounting', 'Budgeting', 'Risk Management', 'Strategic Planning']
+            },
+            'lisa-park': {
+                name: 'Lisa Park',
+                role: 'Senior Accountant',
+                department: 'Finance',
+                email: 'lisa.park@company.com',
+                phone: '+1 (555) 901-2345',
+                startDate: 'October 2020',
+                responsibilities: [
+                    'Managing daily bookkeeping',
+                    'Preparing financial statements',
+                    'Tax preparation and filing',
+                    'Accounts payable/receivable',
+                    'Financial audits'
+                ],
+                skills: ['QuickBooks', 'Tax Preparation', 'Financial Reporting', 'Excel', 'Attention to Detail']
+            }
+        };
+
         // Initialize the app
         let currentFilter = 'all';
         let filteredSheets = [...sheetsData];
@@ -754,11 +1931,10 @@
         const sectionInfo = {
             overview: { title: 'Dashboard Overview', subtitle: 'Quick access to your most important tools' },
             sheets: { title: 'Google Sheets', subtitle: 'Manage all your spreadsheets and data' },
-            apps: { title: 'Web Applications', subtitle: 'Access your business tools' },
-            reports: { title: 'Reports & Analytics', subtitle: 'View insights and metrics' },
-            finance: { title: 'Financial Management', subtitle: 'Handle accounting and payments' },
-            operations: { title: 'Operations', subtitle: 'Manage day-to-day operations' },
-            projects: { title: 'Project Management', subtitle: 'Track and manage projects' }
+            apps: { title: 'Web Tools', subtitle: 'Access all your business applications' },
+            people: { title: 'People Directory', subtitle: 'View team members and their roles' },
+            sops: { title: 'Standard Operating Procedures', subtitle: 'Access company SOPs and documentation' },
+            accounts: { title: 'Accounts & Entities', subtitle: 'Manage business entities and financial accounts' }
         };
 
         // Render table
@@ -854,6 +2030,63 @@
             }
         }
 
+        // Show person details modal
+        function showPersonDetails(personId) {
+            const person = personDetails[personId];
+            if (!person) return;
+
+            const modal = document.getElementById('personModal');
+            const nameEl = document.getElementById('modalPersonName');
+            const contentEl = document.getElementById('modalPersonContent');
+
+            nameEl.textContent = person.name;
+            
+            contentEl.innerHTML = `
+                <div style="margin-bottom: 1.5rem;">
+                    <p style="color: #64748b; margin-bottom: 0.5rem;">${person.role} • ${person.department}</p>
+                    <p style="color: #64748b;">Started: ${person.startDate}</p>
+                </div>
+                
+                <div style="margin-bottom: 1.5rem;">
+                    <h3 style="font-size: 1.125rem; color: #1e293b; margin-bottom: 0.75rem;">Contact Information</h3>
+                    <p style="margin-bottom: 0.5rem;">📧 ${person.email}</p>
+                    <p>📱 ${person.phone}</p>
+                </div>
+                
+                <div style="margin-bottom: 1.5rem;">
+                    <h3 style="font-size: 1.125rem; color: #1e293b; margin-bottom: 0.75rem;">Key Responsibilities</h3>
+                    <ul style="margin-left: 1.5rem; color: #475569;">
+                        ${person.responsibilities.map(r => `<li style="margin-bottom: 0.5rem;">${r}</li>`).join('')}
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 style="font-size: 1.125rem; color: #1e293b; margin-bottom: 0.75rem;">Skills & Expertise</h3>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                        ${person.skills.map(skill => `
+                            <span style="background: #e2e8f0; color: #475569; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.875rem;">
+                                ${skill}
+                            </span>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            modal.classList.add('active');
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('personModal').classList.remove('active');
+        }
+
+        // View entity details
+        function viewEntityDetails(entityId) {
+            // This could open a modal with more entity information
+            alert(`Viewing details for entity: ${entityId}`);
+            // In a real application, this would open a modal or navigate to a details page
+        }
+
         // Event listeners
         document.addEventListener('DOMContentLoaded', function() {
             // Navigation
@@ -880,6 +2113,29 @@
             // Search
             document.getElementById('searchInput').addEventListener('input', (e) => {
                 filterSheets(currentFilter, e.target.value);
+            });
+
+            // SOP tabs
+            document.querySelectorAll('.sop-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Update active tab
+                    document.querySelectorAll('.sop-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    // Show corresponding content
+                    const sopType = tab.getAttribute('data-sop');
+                    document.querySelectorAll('.sop-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    document.getElementById(`sop-${sopType}`).classList.add('active');
+                });
+            });
+
+            // Close modal on click outside
+            document.getElementById('personModal').addEventListener('click', (e) => {
+                if (e.target.id === 'personModal') {
+                    closeModal();
+                }
             });
 
             // Initial render
