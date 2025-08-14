@@ -1,0 +1,133 @@
+<div class="table-container">
+    <div class="table-header">
+        <h2>📊 Google Sheets (<%= sheetsData.length %> total)</h2>
+    </div>
+    <% if (errorMessage) { %>
+        <div class="error-message"><%= errorMessage %></div>
+    <% } else if (sheetsData.length === 0) { %>
+        <div class="no-record-found">No Google Sheets data found.</div>
+    <% } else { %>
+        <div class="table-controls">
+            <input type="text" class="search-input" id="searchInput" placeholder="Search sheets...">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <% 
+                // Get unique categories from sheetsData
+                const categories = [...new Set(sheetsData.map(s => (s.category || '').trim()).filter(Boolean))];
+                categories.forEach(cat => { 
+            %>
+                <button class="filter-btn" data-filter="<%= cat.toLowerCase() %>"><%= cat %></button>
+            <% }); %>
+        </div>
+        <div class="table-wrapper">
+            <table class="sheets-table">
+                <thead>
+                    <tr>
+                        <th>Sheet Name</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="sheetsTableBody">
+                    <!-- Table rows will be rendered by JS -->
+                </tbody>
+            </table>
+        </div>
+        <div class="table-footer">
+            <span id="sheetCount">Showing <%= sheetsData.length %> of <%= sheetsData.length %> sheets</span>
+            <span>Last updated: Today</span>
+        </div>
+    <% } %>    
+</div>
+<script>
+    // Sheets filter logic scoped to this partial
+    const sheetsData = <%- JSON.stringify(sheetsData || []) %>;
+    let currentFilter = 'all';
+    let filteredSheets = [...sheetsData];
+
+    function getCategoryIcon(category) {
+        const cat = (category || '').toLowerCase();
+        return cat === 'purchasing' ? '🛒' :
+               cat === 'financial' ? '💰' :
+               cat === 'operations' ? '⚙️' :
+               cat === 'analytics' ? '📊' :
+               cat === 'other' ? '📋' : '📄';
+    }
+
+    function renderSheetsTable() {
+        const tbody = document.getElementById('sheetsTableBody');
+        const countEl = document.getElementById('sheetCount');
+        tbody.innerHTML = '';
+        filteredSheets.forEach(sheet => {
+            let cat = (sheet.category || '').toLowerCase();
+            let iconHtml = getCategoryIcon(sheet.category);
+            if (sheet.icon && sheet.icon.trim()) {
+                iconHtml = `<img src="${sheet.icon}" alt="${sheet.name}" style="width:20px;height:20px;" onerror="this.style.display='none';this.parentNode.innerText='${getCategoryIcon(sheet.category)}';">`;
+            }
+            const row = document.createElement('tr');
+            if(cat == 'other'){
+                cat = 'planning';
+            }
+            row.innerHTML = `
+                <td>
+                    <a href="${sheet.url}" class="sheet-link" target="_blank">
+                        <span class="sheet-icon">${iconHtml}</span>
+                        ${sheet.name}
+                    </a>
+                </td>
+                <td>
+                    <span class="category-badge badge-${cat}">${sheet.category}</span>
+                </td>
+                <td>${sheet.description}</td>
+                <td>
+                    <span class="status-dot ${sheet.tags && sheet.tags.toLowerCase() === 'active' ? 'status-active' : 'status-updated'}"></span>
+                    ${sheet.tags && sheet.tags.toLowerCase() === 'active' ? 'Active' : 'Recently Updated'}
+                </td>
+                <td>
+                    <div class="action-buttons">
+                        <a href="${sheet.url}" class="btn btn-primary" target="_blank">📄 Open</a>
+                        <button class="btn btn-secondary" onclick="navigator.clipboard.writeText('${sheet.url}')">📋 Copy</button>
+                    </div>
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
+        countEl.textContent = `Showing ${filteredSheets.length} of ${sheetsData.length} sheets`;
+    }
+
+    function filterSheets(category, searchTerm = '') {
+        filteredSheets = sheetsData.filter(sheet => {
+            const matchesCategory = category === 'all' || (sheet.category && sheet.category.toLowerCase() === category);
+            const matchesSearch = searchTerm === '' ||
+                (sheet.name && sheet.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
+                (sheet.description && sheet.description.toLowerCase().includes(searchTerm.toLowerCase()));
+            return matchesCategory && matchesSearch;
+        });
+        renderSheetsTable();
+    }
+    function copyLink(url) {
+        navigator.clipboard.writeText(url).then(() => {
+            // Could add a toast notification here
+            console.log('Link copied!');
+        });
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        // Filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.getAttribute('data-filter');
+                const searchTerm = document.getElementById('searchInput').value;
+                filterSheets(currentFilter, searchTerm);
+            });
+        });
+        // Search input
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            filterSheets(currentFilter, e.target.value);
+        });
+        // Initial render
+        renderSheetsTable();
+    });
+</script>

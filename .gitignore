@@ -1,0 +1,4 @@
+node_modules
+.env
+.DS_Store
+config/ak-project-306512-68097b850279.json

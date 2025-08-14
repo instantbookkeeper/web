@@ -1,0 +1,18 @@
+{
+  "scripts": {
+    "main": "node server.js",
+    "start": "nodemon server.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.1",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "googleapis": "^155.0.0",
+    "module-alias": "^2.2.3"
+  },
+  "_moduleAliases": {
+    "@config": "config",
+    "@services": "services",
+    "@routes": "routes"
+  }
+}

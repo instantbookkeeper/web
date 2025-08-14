@@ -1,0 +1,42 @@
+<div class="card-grid">
+    <% if (errorMessage) { %>
+        <div class="error-message"><%= errorMessage %></div>
+    <% } else if (!overviewData || overviewData.length === 0) { %>
+        <div class="error-message">No overview records found.</div>
+    <% } else { %>
+        <% Object.entries(overviewData).forEach(([section, tools]) => { %>
+          <div class="card">
+            <% if (section.toLowerCase() === 'quick access') { %>
+                <h3>🚀 <%= section %></h3>
+            <% } else if (section.toLowerCase() === 'recent activity') { %>
+                <h3>📊 <%= section %></h3>
+            <% } %>
+            <div class="link-grid">
+              <% tools.forEach(tool => { %>
+                <% if (tool.url) { %>
+                    <a href="<%= tool.url %>" class="link-item" target="_blank">
+                <% } else { %>
+                    <div class="link-item">
+                <% } %>
+                  <span class="brand-icon">
+                    <img 
+                        src="<%= tool.icon %>" 
+                        alt="<%= tool.name %>" 
+                        onerror="this.style.display='none'; this.parentNode.innerText='<%= tool.name.charAt(0) %>';" 
+                    />
+                  </span>
+                  <div class="link-item-content">
+                    <h4><%= tool.name || 'Unnamed' %></h4>
+                    <p><%= tool.description  || 'No description available' %></p>
+                  </div>
+                <% if (tool.url) { %>
+                  </a>
+                <% } else { %>
+                  </div>
+                <% } %>
+              <% }) %>
+            </div>
+          </div>
+        <% }) %>
+    <% } %>
+</div>
