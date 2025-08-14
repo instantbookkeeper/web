@@ -1,7 +1,5 @@
 const { google } = require('googleapis');
-const fs = require('fs');
-const path = process.env.AK_PROJECT_JSON;
-const credentials = JSON.parse(fs.readFileSync(path, 'utf-8'));
+const credentials = JSON.parse(process.env.AK_PROJECT_JSON);
 const SPREADSHEET_ID = '1FRj1_Hfx8Qxx5ID2ozBletEZdz6FkoBSSEhI-4utU4o';
 
 async function getOverviewData() {
