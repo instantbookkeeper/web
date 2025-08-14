@@ -745,7 +745,7 @@ body {
     }
 }
 /* manual css */
-.card-grid .error-message {
+.error-message {
     color: rgb(243, 241, 241);
 }
 

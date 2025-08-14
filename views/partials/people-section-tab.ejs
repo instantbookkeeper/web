@@ -1,36 +1,42 @@
+<% if (errorMessage) { %>
+    <div class="error-message"><%= errorMessage %></div>
+<% } else if (!peopleData || Object.keys(peopleData).length === 0) { %>
+    <div class="error-message">No Records found.</div>
+<% } else { 
+    const departmentIcons = {
+        'Finance': '💰',
+        'Operations': '⚙️',
+        'Sales & Marketing': '💼',
+        'Leadership': '👔',
+        'Other': '📁' // Default icon for unknown departments
+    };
+    Object.entries(peopleData).forEach(([department, people]) => { 
+%>
 <div class="department-section">
     <div class="department-header">
-        <h3>👔 Leadership Team</h3>
+        <h3><%= departmentIcons[department] || departmentIcons['Other'] %> <%= department %></h3>
     </div>
     <div class="people-grid">
-        <div class="person-card">
-            <div class="person-header">
-                <div class="person-avatar">JD</div>
-                <div class="person-info">
-                    <h4>John Doe</h4>
-                    <p class="role">CEO & Founder</p>
+        <% people.forEach((person, idx) => { %>
+            <div class="person-card">
+                <div class="person-header">
+                    <div class="person-avatar">
+                        <%= person.name.split(' ').map(n => n[0]).join('').toUpperCase() %>
+                    </div>
+                    <div class="person-info">
+                        <h4><%= person.name %></h4>
+                        <p class="role"><%= person.role %></p>
+                    </div>
                 </div>
-            </div>
-            <div class="person-details">
-                Strategic vision, company growth, investor relations, and overall business strategy.
-            </div>
-            <button class="view-details-btn" onclick="showPersonDetails('john-doe')">View Details</button>
-        </div>
-        <div class="person-card">
-            <div class="person-header">
-                <div class="person-avatar">SM</div>
-                <div class="person-info">
-                    <h4>Sarah Miller</h4>
-                    <p class="role">COO</p>
+                <div class="person-details">
+                    <%= person.short_desc %>
                 </div>
+                <button class="view-details-btn" onclick="showPersonDetails('<%= department %>-<%= idx %>')">View Details</button>
             </div>
-            <div class="person-details">
-                Operations management, process optimization, team coordination, and efficiency improvements.
-            </div>
-            <button class="view-details-btn" onclick="showPersonDetails('sarah-miller')">View Details</button>
-        </div>
+        <% }) %>
     </div>
 </div>
+<% }) } %>
 <!-- Person Details Modal -->
 <div class="modal" id="personModal">
     <div class="modal-content">
@@ -44,9 +50,20 @@
     </div>
 </div>
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+     // Close modal on click outside
+        document.getElementById('personModal').addEventListener('click', (e) => {
+            if (e.target.id === 'personModal') {
+                closeModal();
+            }
+        });
+    });  
     // Show person details modal
+    const peopleData = <%- JSON.stringify(peopleData) %>;
+
     function showPersonDetails(personId) {
-        const person = personDetails[personId];
+        const [department, idx] = personId.split('-');
+        const person = peopleData[department]?.[idx];
         if (!person) return;
 
         const modal = document.getElementById('personModal');
@@ -66,20 +83,18 @@
                 <p style="margin-bottom: 0.5rem;">📧 ${person.email}</p>
                 <p>📱 ${person.phone}</p>
             </div>
-            
             <div style="margin-bottom: 1.5rem;">
                 <h3 style="font-size: 1.125rem; color: #1e293b; margin-bottom: 0.75rem;">Key Responsibilities</h3>
                 <ul style="margin-left: 1.5rem; color: #475569;">
-                    ${person.responsibilities.map(r => `<li style="margin-bottom: 0.5rem;">${r}</li>`).join('')}
+                    ${person.responsibilities.split(',').map(r => `<li style="margin-bottom: 0.5rem;">${r.trim()}</li>`).join('')}
                 </ul>
             </div>
-            
             <div>
-                <h3 style="font-size: 1.125rem; color: #1e293b; margin-bottom: 0.75rem;">Skills & Expertise</h3>
-                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
-                    ${person.skills.map(skill => `
+            <h3 style="font-size: 1.125rem; color: #1e293b; margin-bottom: 0.75rem;">Skills & Expertise</h3>
+            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                    ${person.skills.split(',').map(skill => `
                         <span style="background: #e2e8f0; color: #475569; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.875rem;">
-                            ${skill}
+                            ${skill.trim()}
                         </span>
                     `).join('')}
                 </div>
@@ -92,50 +107,5 @@
     // Close modal
     function closeModal() {
         document.getElementById('personModal').classList.remove('active');
-    }
-
-    // View entity details
-    function viewEntityDetails(entityId) {
-        // This could open a modal with more entity information
-        alert(`Viewing details for entity: ${entityId}`);
-        // In a real application, this would open a modal or navigate to a details page
-    }
-
-    // Event listeners
-    document.addEventListener('DOMContentLoaded', function() {
-        // Navigation
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', (e) => {
-                e.preventDefault();
-                const section = item.getAttribute('data-section');
-                if (section) switchSection(section);
-            });
-        });
-
-        
-
-        // SOP tabs
-        document.querySelectorAll('.sop-tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                // Update active tab
-                document.querySelectorAll('.sop-tab').forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                
-                // Show corresponding content
-                const sopType = tab.getAttribute('data-sop');
-                document.querySelectorAll('.sop-content').forEach(content => {
-                    content.classList.remove('active');
-                });
-                document.getElementById(`sop-${sopType}`).classList.add('active');
-            });
-        });
-
-        // Close modal on click outside
-        document.getElementById('personModal').addEventListener('click', (e) => {
-            if (e.target.id === 'personModal') {
-                closeModal();
-            }
-        });
-    });
-
+    }      
 </script>

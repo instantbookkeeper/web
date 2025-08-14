@@ -1,38 +1,38 @@
 <div class="card-grid">
-    <% if (errorMessage) { %>
-        <p class="error-message"><%= errorMessage %></p>
-    <% } else if (!hasData) { %>
-        <p class="error-message">No data found in the Google Sheet.</p>
+  <% if (errorMessage) { %>
+      <p class="error-message"><%= errorMessage %></p>
+    <% } else if (appsData.length === 0) { %>
+        <div class="error-message">No Records found.</div>
     <% } else { %>
-        <% Object.entries(appsData).forEach(([section, tools]) => { %>
-          <div class="card">
-            <h3><%= section %></h3>
-            <div class="link-grid">
-              <% tools.forEach(tool => { %>
-                <% if (tool.url) { %>
-                    <a href="<%= tool.url %>" class="link-item" target="_blank">
-                <% } else { %>
-                    <div class="link-item">
-                <% } %>
-                  <span class="brand-icon">
-                    <img 
-                        src="/icons/<%= tool.icon %>" 
-                        alt="<%= tool.name %>" 
-                        onerror="this.style.display='none'; this.parentNode.innerText='<%= tool.name.charAt(0) %>';" 
-                    />
-                  </span>
-                  <div class="link-item-content">
-                    <h4><%= tool.name || 'Unnamed' %></h4>
-                    <p><%= tool.description  || 'No description available' %></p>
-                  </div>
-                <% if (tool.url) { %>
-                  </a>
-                <% } else { %>
-                  </div>
-                <% } %>
-              <% }) %>
-            </div>
+      <% Object.entries(appsData).forEach(([section, tools]) => { %>
+        <div class="card">
+          <h3><%= section %></h3>
+          <div class="link-grid">
+            <% tools.forEach(tool => { %>
+              <% if (tool.url) { %>
+                  <a href="<%= tool.url %>" class="link-item" target="_blank">
+              <% } else { %>
+                  <div class="link-item">
+              <% } %>
+                <span class="brand-icon">
+                  <img 
+                      src="/icons/<%= tool.icon %>" 
+                      alt="<%= tool.name %>" 
+                      onerror="this.style.display='none'; this.parentNode.innerText='<%= tool.name.charAt(0) %>';" 
+                  />
+                </span>
+                <div class="link-item-content">
+                  <h4><%= tool.name || 'Unnamed' %></h4>
+                  <p><%= tool.description  || 'No description available' %></p>
+                </div>
+              <% if (tool.url) { %>
+                </a>
+              <% } else { %>
+                </div>
+              <% } %>
+            <% }) %>
           </div>
-        <% }) %>
-    <% } %>
+        </div>
+      <% }) %>
+  <% } %>
 </div>
