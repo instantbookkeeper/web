@@ -74,29 +74,70 @@
         
         contentEl.innerHTML = `
             <div style="margin-bottom: 1.5rem;">
-                <p style="color: #64748b; margin-bottom: 0.5rem;">${person.role} • ${person.department}</p>
-                <p style="color: #64748b;">Started: ${person.startDate}</p>
+               ${
+                    (person.role && person.role.trim() !== "") || (person.department && person.department.trim() !== "")
+                    ? `<p style="color: #64748b; margin-bottom: 0.5rem;">
+                            ${person.role && person.role.trim() !== "" ? person.role : ""}
+                            ${(person.role && person.department) ? " • " : ""}
+                            ${person.department && person.department.trim() !== "" ? person.department : ""}
+                    </p>`
+                    : ""
+                }
+                ${
+                    person.startDate && person.startDate.trim() !== ""
+                    ? `<p style="color: #64748b;">Started: ${person.startDate}</p>`
+                    : ""
+                }
+                ${
+                    (!person.role && !person.department && !person.startDate)
+                    ? `<p style="color:#9ca3af;">No role, department, or start date added</p>`
+                    : ""
+                }
             </div>
             
             <div style="margin-bottom: 1.5rem;">
                 <h3 style="font-size: 1.125rem; color: #1e293b; margin-bottom: 0.75rem;">Contact Information</h3>
-                <p style="margin-bottom: 0.5rem;">📧 ${person.email}</p>
-                <p>📱 ${person.phone}</p>
+                ${
+                (person.email && person.email.trim() !== "") || (person.phone && person.phone.trim() !== "")
+                ? `
+                    ${person.email && person.email.trim() !== "" ? `<p style="margin-bottom: 0.5rem;">📧 ${person.email}</p>` : ""}
+                    ${person.phone && person.phone.trim() !== "" ? `<p>📱 ${person.phone.replace(/`/g, "").trim()}</p>` : ""}
+                `
+                : `<p style="color:#9ca3af;">No contact information added</p>`
+            }
             </div>
             <div style="margin-bottom: 1.5rem;">
                 <h3 style="font-size: 1.125rem; color: #1e293b; margin-bottom: 0.75rem;">Key Responsibilities</h3>
-                <ul style="margin-left: 1.5rem; color: #475569;">
-                    ${person.responsibilities.split(',').map(r => `<li style="margin-bottom: 0.5rem;">${r.trim()}</li>`).join('')}
-                </ul>
+                ${
+                    person.responsibilities && person.responsibilities.trim() !== ""
+                    ? `<ul style="margin-left: 1.5rem; color: #475569;">
+                            ${person.responsibilities
+                                .split(",")
+                                .map(r => r.trim())
+                                .filter(r => r.length > 0) // removes empty entries
+                                .map(r => `<li style="margin-bottom: 0.5rem;">${r}</li>`)
+                                .join("")}
+                    </ul>`
+                    : `<p style="color:#9ca3af;">No responsibilities added</p>`
+                }
             </div>
             <div>
-            <h3 style="font-size: 1.125rem; color: #1e293b; margin-bottom: 0.75rem;">Skills & Expertise</h3>
-            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
-                    ${person.skills.split(',').map(skill => `
-                        <span style="background: #e2e8f0; color: #475569; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.875rem;">
-                            ${skill.trim()}
-                        </span>
-                    `).join('')}
+                <h3 style="font-size: 1.125rem; color: #1e293b; margin-bottom: 0.75rem;">Skills & Expertise</h3>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                     ${
+                        person.skills && person.skills.trim() !== ""
+                        ? person.skills
+                            .split(",")
+                            .map(skill => skill.trim())
+                            .filter(skill => skill.length > 0) // remove empty / trailing
+                            .map(skill => `
+                                <span style="background: #e2e8f0; color: #475569; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.875rem;">
+                                    ${skill}
+                                </span>
+                            `)
+                            .join("")
+                        : `<p style="color:#9ca3af;">No skills added</p>`
+                    }
                 </div>
             </div>
         `;
