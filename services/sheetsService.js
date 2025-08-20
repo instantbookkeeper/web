@@ -177,4 +177,41 @@ async function getPeopleData() {
 	 }
 		
 }
-module.exports = { getWebToolsData, getGoogleSheetsData, getOverviewData, getPeopleData };
+
+async function getSOPData() {
+    const auth = new google.auth.GoogleAuth({
+        credentials,
+        scopes: [googleSheetAPIUrl],
+    });
+    const sheets = google.sheets({ version: 'v4', auth: await auth.getClient() });
+
+    try {
+        const GOOGLE_SHEET_RANGE = 'SOP'; // Adjust as needed
+        const response = await sheets.spreadsheets.values.get({
+            spreadsheetId: SPREADSHEET_ID,
+            range: GOOGLE_SHEET_RANGE,
+        });
+        const rows = response.data.values;
+        if (!rows || rows.length <= 1) return []; // No data
+
+        const headers = rows[0].map(h => h.trim().toLowerCase().replace(/\s+/g, '_'));
+        const dataRows = rows.slice(1);
+
+        return dataRows.map(row => {
+            const obj = {};
+            headers.forEach((header, idx) => {
+                obj[header] = row[idx] || '';
+            });
+            return {
+                category: obj['category'],
+                title: obj['title'],
+                description: obj['description'],
+                sopData: obj['sop_data'], // JSON string
+            };
+        });
+    } catch (err) {
+        console.error('Failed to fetch SOP data', err);
+        return [];
+    }
+}
+module.exports = { getWebToolsData, getGoogleSheetsData, getOverviewData, getPeopleData, getSOPData };

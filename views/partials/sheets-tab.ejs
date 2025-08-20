@@ -3,7 +3,9 @@
         <h2>📊 Google Sheets (<%= sheetsData.length %> total)</h2>
     </div>
     <% if (errorMessage) { %>
-        <div class="error-message"><%= errorMessage %></div>
+        <div class="table-controls">
+            <div class="error-message"><%= errorMessage %></div>
+        </div>
     <% } else if (sheetsData.length === 0) { %>
         <div class="no-record-found">No Google Sheets data found.</div>
     <% } else { %>

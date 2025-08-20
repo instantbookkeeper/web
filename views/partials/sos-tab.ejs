@@ -1,0 +1,61 @@
+<% if (errorMessage) { %>
+    <div class="error-message"><%= errorMessage %></div>
+<% } else if (!sopData || sopData.length === 0) { %>
+    <div class="no-record-found">No SOP records found.</div>
+<% } else { 
+    // Group SOP data by category
+    const groupedSOPData = sopData.reduce((acc, sop) => {
+        const slug = sop.category.toLowerCase().replace(/\s+/g, '-'); // for tab ID/data attributes
+        if (!acc[slug]) {
+            acc[slug] = { display: sop.category, items: [] };
+        }
+        acc[slug].items.push(sop);
+        return acc;
+    }, {});   
+%>
+    <div class="sop-tabs">
+        <% Object.keys(groupedSOPData).forEach((slug, idx) => { %>
+            <button 
+                class="sop-tab <%= idx === 0 ? 'active' : '' %>" 
+                data-sop="<%= slug %>">
+                <%= groupedSOPData[slug].display %>
+            </button>
+        <% }) %>
+    </div>
+
+    <% Object.entries(groupedSOPData).forEach(([slug, data], idx) => { %>
+        <div class="sop-content <%= idx === 0 ? 'active' : '' %>" id="sop-<%= slug %>">
+            <% data.items.forEach((sop, sopIdx) => { %>
+                <div class="sop-card">
+                    <div class="sop-document">
+                        <h3>📋 <%= sop.title %></h3>
+                        <p><%= sop.description %></p>
+    
+                        <%
+                        let parsedSopData;
+                        try {
+                            parsedSopData = JSON.parse(sop.sopData);
+                        } catch (err) {
+                            parsedSopData = null;
+                        }
+                        if (parsedSopData && parsedSopData.sections) {
+                            parsedSopData.sections.forEach((section, sectionIdx) => { 
+                        %>
+                            <h4><%= `${sectionIdx + 1}. ${section.title}` %></h4>
+                            <ol>
+                                <% section.steps.forEach(step => { %>
+                                    <li><%- step %></li>
+                                <% }) %>
+                            </ol>
+                        <%
+                            });
+                        } else { 
+                        %>
+                            <p class="error-message">Invalid SOP data format.</p>
+                        <% } %>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    <% }) %>
+<% } %>

@@ -748,7 +748,9 @@ body {
 .error-message {
     color: rgb(243, 241, 241);
 }
-
+.table-controls .error-message {
+    color: rgb(26, 25, 25);
+}
 .no-record-found{
     color: rgb(157, 144, 150);
     text-align: center;
