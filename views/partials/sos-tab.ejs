@@ -59,3 +59,22 @@
         </div>
     <% }) %>
 <% } %>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // SOP tabs
+        document.querySelectorAll('.sop-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Update active tab
+                document.querySelectorAll('.sop-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Show corresponding content
+                const sopType = tab.getAttribute('data-sop');
+                document.querySelectorAll('.sop-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(`sop-${sopType}`).classList.add('active');
+            });
+        });
+    });
+</script>

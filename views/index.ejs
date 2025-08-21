@@ -47,230 +47,13 @@
 
             <!-- Accounts & Entities Section -->
             <div class="content-section" id="accounts">
-                <!-- Entities Table -->
-                <div class="accounts-container">
-                    <div class="table-container">
-                        <div class="table-header">
-                            <h2>🏢 Business Entities</h2>
-                        </div>
-                        <div class="table-wrapper">
-                            <table class="accounts-table">
-                                <thead>
-                                    <tr>
-                                        <th>Entity Name</th>
-                                        <th>Type</th>
-                                        <th>Tax ID</th>
-                                        <th>State</th>
-                                        <th>Status</th>
-                                        <th>Formation Date</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><strong>Acme Corporation LLC</strong></td>
-                                        <td><span class="entity-badge">LLC</span></td>
-                                        <td>XX-XXXXXXX</td>
-                                        <td>Delaware</td>
-                                        <td><span class="status-dot status-active"></span>Active</td>
-                                        <td>Jan 15, 2019</td>
-                                        <td>
-                                            <button class="btn btn-secondary" onclick="viewEntityDetails('acme-corp')">View Details</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Acme Holdings Inc</strong></td>
-                                        <td><span class="entity-badge">C-Corp</span></td>
-                                        <td>XX-XXXXXXX</td>
-                                        <td>Delaware</td>
-                                        <td><span class="status-dot status-active"></span>Active</td>
-                                        <td>Mar 22, 2020</td>
-                                        <td>
-                                            <button class="btn btn-secondary" onclick="viewEntityDetails('acme-holdings')">View Details</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Acme International Ltd</strong></td>
-                                        <td><span class="entity-badge">Ltd</span></td>
-                                        <td>XX-XXXXXXX</td>
-                                        <td>UK</td>
-                                        <td><span class="status-dot status-active"></span>Active</td>
-                                        <td>Jun 10, 2021</td>
-                                        <td>
-                                            <button class="btn btn-secondary" onclick="viewEntityDetails('acme-intl')">View Details</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Acme Ventures LP</strong></td>
-                                        <td><span class="entity-badge">LP</span></td>
-                                        <td>XX-XXXXXXX</td>
-                                        <td>California</td>
-                                        <td><span class="status-dot status-updated"></span>Pending</td>
-                                        <td>Sep 5, 2022</td>
-                                        <td>
-                                            <button class="btn btn-secondary" onclick="viewEntityDetails('acme-ventures')">View Details</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Accounts Table -->
-                <div class="accounts-container">
-                    <div class="table-container">
-                        <div class="table-header">
-                            <h2>💳 Bank & Financial Accounts</h2>
-                        </div>
-                        <div class="table-wrapper">
-                            <table class="accounts-table">
-                                <thead>
-                                    <tr>
-                                        <th>Account Name</th>
-                                        <th>Bank/Institution</th>
-                                        <th>Account Type</th>
-                                        <th>Account Number</th>
-                                        <th>Entity</th>
-                                        <th>Balance</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><strong>Primary Operating</strong></td>
-                                        <td>
-                                            <a href="https://www.chase.com" target="_blank" class="account-link">
-                                                Chase Bank
-                                            </a>
-                                        </td>
-                                        <td><span class="account-type checking">Checking</span></td>
-                                        <td>****1234</td>
-                                        <td>Acme Corporation LLC</td>
-                                        <td class="balance">$45,678.90</td>
-                                        <td>
-                                            <button class="btn btn-primary" onclick="window.open('https://www.chase.com', '_blank')">Access</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Payroll Account</strong></td>
-                                        <td>
-                                            <a href="https://www.chase.com" target="_blank" class="account-link">
-                                                Chase Bank
-                                            </a>
-                                        </td>
-                                        <td><span class="account-type checking">Checking</span></td>
-                                        <td>****5678</td>
-                                        <td>Acme Corporation LLC</td>
-                                        <td class="balance">$23,456.78</td>
-                                        <td>
-                                            <button class="btn btn-primary" onclick="window.open('https://www.chase.com', '_blank')">Access</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Business Savings</strong></td>
-                                        <td>
-                                            <a href="https://www.bankofamerica.com" target="_blank" class="account-link">
-                                                Bank of America
-                                            </a>
-                                        </td>
-                                        <td><span class="account-type savings">Savings</span></td>
-                                        <td>****9012</td>
-                                        <td>Acme Holdings Inc</td>
-                                        <td class="balance">$125,000.00</td>
-                                        <td>
-                                            <button class="btn btn-primary" onclick="window.open('https://www.bankofamerica.com', '_blank')">Access</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Business Credit Card</strong></td>
-                                        <td>
-                                            <a href="https://www.americanexpress.com" target="_blank" class="account-link">
-                                                American Express
-                                            </a>
-                                        </td>
-                                        <td><span class="account-type credit">Credit Card</span></td>
-                                        <td>****3456</td>
-                                        <td>Acme Corporation LLC</td>
-                                        <td class="balance negative">-$12,345.67</td>
-                                        <td>
-                                            <button class="btn btn-primary" onclick="window.open('https://www.americanexpress.com', '_blank')">Access</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Amazon Seller</strong></td>
-                                        <td>
-                                            <a href="https://sellercentral.amazon.com" target="_blank" class="account-link">
-                                                Amazon
-                                            </a>
-                                        </td>
-                                        <td><span class="account-type merchant">Merchant</span></td>
-                                        <td>****7890</td>
-                                        <td>Acme Corporation LLC</td>
-                                        <td class="balance">$34,567.89</td>
-                                        <td>
-                                            <button class="btn btn-primary" onclick="window.open('https://sellercentral.amazon.com', '_blank')">Access</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>PayPal Business</strong></td>
-                                        <td>
-                                            <a href="https://www.paypal.com" target="_blank" class="account-link">
-                                                PayPal
-                                            </a>
-                                        </td>
-                                        <td><span class="account-type merchant">Merchant</span></td>
-                                        <td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="86e4f3f5efe8e3f5f5c6e7e5ebe3a8e5e9eb">[email&#160;protected]</a></td>
-                                        <td>Acme Corporation LLC</td>
-                                        <td class="balance">$8,901.23</td>
-                                        <td>
-                                            <button class="btn btn-primary" onclick="window.open('https://www.paypal.com', '_blank')">Access</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Wise Multi-Currency</strong></td>
-                                        <td>
-                                            <a href="https://wise.com" target="_blank" class="account-link">
-                                                Wise
-                                            </a>
-                                        </td>
-                                        <td><span class="account-type checking">Multi-Currency</span></td>
-                                        <td>****4567</td>
-                                        <td>Acme International Ltd</td>
-                                        <td class="balance">€15,234.56</td>
-                                        <td>
-                                            <button class="btn btn-primary" onclick="window.open('https://wise.com', '_blank')">Access</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><strong>Stripe Account</strong></td>
-                                        <td>
-                                            <a href="https://dashboard.stripe.com" target="_blank" class="account-link">
-                                                Stripe
-                                            </a>
-                                        </td>
-                                        <td><span class="account-type merchant">Payment Processor</span></td>
-                                        <td>acct_****XYZ</td>
-                                        <td>Acme Corporation LLC</td>
-                                        <td class="balance">$5,678.90</td>
-                                        <td>
-                                            <button class="btn btn-primary" onclick="window.open('https://dashboard.stripe.com', '_blank')">Access</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="table-footer">
-                            <span>Total Balance (USD): <strong style="color: #059669;">$280,725.90</strong></span>
-                            <span>Last updated: Today at 3:45 PM</span>
-                        </div>
-                    </div>
-                </div>
+                <%- include('partials/accounts-entities-tab', { entities: entities || [],accounts: accounts || [], errorMessage }) %>
             </div>
         </main>
     </div>
-
+    
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        
         // Person details data
         // Section info
         const sectionInfo = {
@@ -306,13 +89,6 @@
             }
         }
 
-        // View entity details
-        function viewEntityDetails(entityId) {
-            // This could open a modal with more entity information
-            alert(`Viewing details for entity: ${entityId}`);
-            // In a real application, this would open a modal or navigate to a details page
-        }
-
         // Event listeners
         document.addEventListener('DOMContentLoaded', function() {
             // Navigation
@@ -321,24 +97,6 @@
                     e.preventDefault();
                     const section = item.getAttribute('data-section');
                     if (section) switchSection(section);
-                });
-            });
-
-          
-
-            // SOP tabs
-            document.querySelectorAll('.sop-tab').forEach(tab => {
-                tab.addEventListener('click', () => {
-                    // Update active tab
-                    document.querySelectorAll('.sop-tab').forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                    
-                    // Show corresponding content
-                    const sopType = tab.getAttribute('data-sop');
-                    document.querySelectorAll('.sop-content').forEach(content => {
-                        content.classList.remove('active');
-                    });
-                    document.getElementById(`sop-${sopType}`).classList.add('active');
                 });
             });
         });

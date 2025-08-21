@@ -13,6 +13,7 @@
   "_moduleAliases": {
     "@config": "config",
     "@services": "services",
-    "@routes": "routes"
+    "@routes": "routes",
+    "@utility": "utility"
   }
 }

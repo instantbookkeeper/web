@@ -214,4 +214,56 @@ async function getSOPData() {
         return [];
     }
 }
-module.exports = { getWebToolsData, getGoogleSheetsData, getOverviewData, getPeopleData, getSOPData };
+async function getAccountsAndEntitiesData() {
+    const auth = new google.auth.GoogleAuth({
+        credentials,
+        scopes: [googleSheetAPIUrl],
+    });
+    const sheets = google.sheets({ version: 'v4', auth: await auth.getClient() });
+
+    try {
+        const GOOGLE_SHEET_RANGE = 'Accounts & Entities'; // Tab name in the sheet
+        const response = await sheets.spreadsheets.values.get({
+            spreadsheetId: SPREADSHEET_ID,
+            range: GOOGLE_SHEET_RANGE,
+        });
+
+        const rows = response.data.values;
+        if (!rows || rows.length <= 1) return { entities: [], accounts: [] }; // No data
+
+        const headers = rows[0].map(h => h.trim().toLowerCase().replace(/\s+/g, '_'));
+        const dataRows = rows.slice(1);
+
+        const entities = [];
+        const accounts = [];
+
+        dataRows.forEach(row => {
+            const obj = {};
+            headers.forEach((header, idx) => {
+                obj[header] = row[idx] || '';
+            });
+
+            if (obj['category'] === 'Entity') {
+                entities.push({
+					entity_id: obj['entity_id'],
+                    entity_name: obj['entity_name'],
+                    currency: obj['currency'],
+                });
+            } else if (obj['category'] === 'Account') {
+                accounts.push({
+                    account_id: obj['account_id'],
+					account_name: obj['account_name'],
+					account_full_name: obj['account_full_name'],
+                    entity_id: obj['entity_id'],
+					entity_name: obj['entity_name'],
+                });
+            }
+        });
+
+        return { entities, accounts };
+    } catch (err) {
+        return { entities: [], accounts: [] };
+    }
+}
+
+module.exports = { getWebToolsData, getGoogleSheetsData, getOverviewData, getPeopleData, getSOPData, getAccountsAndEntitiesData };

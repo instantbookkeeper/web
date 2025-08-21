@@ -1,0 +1,77 @@
+<!-- Entities Table -->
+<% if (errorMessage) { %>
+    <p class="error-message"><%= errorMessage %></p>
+<% } else if (entities.length === 0 && accounts.length === 0) { %>
+    <div class="error-message">No Records found.</div>
+<% } else { %>
+    <% if (entities.length > 0) { %>
+        <div class="accounts-container">
+            <div class="table-container">
+                <div class="table-header">
+                    <h2>🏢 Business Entities</h2>
+                </div>
+                <div class="table-wrapper">
+                    <table class="accounts-table">
+                        <thead>
+                            <tr>
+                                <th>Entity ID</th>
+                                <th>Entity Name</th>
+                                <th>Currency</th>
+                                <!-- <th>State</th>
+                                <th>Status</th>
+                                <th>Formation Date</th>
+                                <th>Actions</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% entities.forEach(entity => { %>
+                                <tr>
+                                    <td><span class="entity-badge"><%= entity.entity_id %></span></td>
+                                    <td><strong><%= entity.entity_name %></strong></td>
+                                    <td><%= entity.currency %></td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>    
+        </div>
+    <% } %>
+    <% if (accounts.length > 0) { %>
+        <!-- Accounts Table -->
+        <div class="accounts-container">
+            <div class="table-container">
+                <div class="table-header">
+                    <h2>💳 Bank & Financial Accounts</h2>
+                </div>
+                <div class="table-wrapper">
+                    <table class="accounts-table">
+                        <thead>
+                            <tr>
+                                <th>Account ID</th>
+                                <th>Account Name</th>
+                                <th>Account Full Name</th>
+                                <th>Entity ID</th>
+                                <th>Entity Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% accounts.forEach(account => { %>
+                                <tr>
+                                    <td><strong><%= account.account_id %></strong></td>
+                                    <td><strong><%= account.account_name %></strong></td>
+                                    <td><%= account.account_full_name %></td>
+                                    <td><span class="entity-badge"><%= account.entity_id %></span></td>
+                                    <td><%= account.entity_name %></td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-footer">
+                    <span>Last updated: Today at 3:45 PM</span>
+                </div>
+            </div>
+        </div>
+    <% } %>
+<% } %>
